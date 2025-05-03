@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-sr="Galerija - UNIQUE" data-en="Gallery - UNIQUE">Galerija - UNIQUE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background-color: #000;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            margin-left: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            border-radius: 18px;
+            border: 3px solid #a78bfa;
+        }
+
+        .logo img:hover {
+            transform: scale(1.15);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #a78bfa;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dropdown-content a:hover {
+            color: #a78bfa;
+            background-color: #1a1a1a;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .language-switcher {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 10px 20px;
+            position: fixed;
+            top: 85px;
+            right: 0;
+            z-index: 999;
+        }
+
+        .language-flag {
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            border: 2px solid #a78bfa;
+            border-radius: 3px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .language-flag:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .language-flag.active {
+            border-color: #7c3aed;
+            opacity: 1;
+        }
+
+        main {
+            padding: 100px 0;
+            background: #f7f7f7;
+        }
+
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .gallery-header h2 {
+            font-size: 40px;
+            color: #222;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .gallery-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #a78bfa, transparent);
+        }
+
+        .gallery-header p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .gallery-filters {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .gallery-filters button {
+            background-color: #fff;
+            border: 1px solid #a78bfa;
+            color: #a78bfa;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .gallery-filters button.active,
+        .gallery-filters button:hover {
+            background-color: #a78bfa;
+            color: #fff;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(167, 139, 250, 0.4);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(167, 139, 250, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2100;
+        }
+
+        .modal-close:hover {
+            color: #a78bfa;
+        }
+
+        .modal-prev, .modal-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+            padding: 10px;
+            transition: color 0.3s ease;
+            z-index: 2100;
+        }
+
+        .modal-prev:hover, .modal-next:hover {
+            color: #a78bfa;
+        }
+
+        .modal-prev {
+            left: 20px;
+        }
+
+        .modal-next {
+            right: 20px;
+        }
+
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 40px 20px;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #a78bfa;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin: 12px 0;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #a78bfa;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            margin: 0 15px 0 0;
+            font-size: 28px;
+            color: #fff;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #a78bfa;
+            transform: scale(1.2);
+        }
+
+        .footer-credit {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #ccc;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-credit a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-credit a:hover {
+            color: #a78bfa;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: #000;
+                width: 100%;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .nav-links a {
+                font-size: 20px;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background-color: #1a1a1a;
+                width: 100%;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .logo {
+                margin-left: 5px;
+            }
+
+            .logo img {
+                height: 50px;
+                width: auto;
+                margin: 5px;
+            }
+
+            .navbar {
+                padding: 10px;
+                min-height: 60px;
+            }
+
+            .hamburger {
+                margin-right: 10px;
+            }
+
+            .language-switcher {
+                top: 85px;
+                padding: 8px 15px;
+            }
+
+            main {
+                padding: 80px 0;
+            }
+
+            .gallery-container {
+                padding: 0;
+            }
+
+            .gallery-header h2 {
+                font-size: 32px;
+            }
+
+            .gallery-header p {
+                font-size: 16px;
+                padding: 0 15px;
+            }
+
+            .gallery-filters button {
+                padding: 8px 16px;
+                margin: 5px;
+                font-size: 14px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .gallery-item img {
+                height: 80vh;
+                border-radius: 0;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 0 15px;
+            }
+
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+            }
+
+            .social-links a {
+                margin: 0 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 40px;
+                width: auto;
+                margin: 5px;
+            }
+
+            .navbar {
+                padding: 8px;
+                min-height: 50px;
+            }
+
+            .nav-links {
+                top: 50px;
+            }
+
+            .language-switcher {
+                top: 75px;
+                padding: 6px 10px;
+            }
+
+            .language-flag {
+                width: 25px;
+                height: 15px;
+            }
+
+            .gallery-header h2 {
+                font-size: 28px;
+            }
+
+            .gallery-item img {
+                height: 70vh;
+            }
+
+            .gallery-filters button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo1.jpg" alt="logo Uniqueproduction">
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-sr="Početna" data-en="Home">Početna</a></li>
+                <li><a href="O-nama.html" data-sr="O nama" data-en="About Us">O nama</a></li>
+                <li class="dropdown">
+                    <a href="#usluge" data-sr="Usluge" data-en="Services">Usluge</a>
+                    <div class="dropdown-content">
+                        <a href="Muzicki-performansi.html" data-sr="Muzički performansi" data-en="Musical Performances">Muzički performansi</a>
+                        <a href="Scenski-art-performansi.html" data-sr="Scenski art performansi" data-en="Stage Art Performances">Scenski art performansi</a>
+                        <a href="Specijalni-efekti-tehnicka-produkcija.html" data-sr="Specijalni efekti & Tehnička produkcija" data-en="Special Effects & Technical Production">Specijalni efekti & Tehnička produkcija</a>
+                        <a href="Ostale-usluge.html" data-sr="Ostale usluge" data-en="Other Services">Ostale usluge</a>
+                    </div>
+                </li>
+                <li><a href="Galerija.html" data-sr="Galerija" data-en="Gallery">Galerija</a></li>
+                <li><a href="Kontakti.html" data-sr="Kontakti" data-en="Contacts">Kontakti</a></li>
+            </ul>
+        </nav>
+        <div class="language-switcher">
+            <img src="srpski.png" alt="Srpski" class="language-flag active" data-lang="sr">
+            <img src="engleski.png" alt="English" class="language-flag" data-lang="en">
+        </div>
+    </header>
+
+    <main>
+        <div class="gallery-container">
+            <div class="gallery-header">
+                <h2 data-sr="Galerija" data-en="Gallery">Galerija</h2>
+                <p data-sr="Pogledajte našu kolekciju inspirativnih trenutaka i vizuelnih doživljaja koji govore sami za sebe." data-en="View our collection of inspiring moments and visual experiences that speak for themselves.">Pogledajte našu kolekciju inspirativnih trenutaka i vizuelnih doživljaja koji govore sami za sebe.</p>
+            </div>
+            <div class="gallery-filters">
+                <button data-filter="all" class="active" data-sr="Sve" data-en="All">Sve</button>
+                <button data-filter="vjencanja-gala" data-sr="Vjenčanja i gala večeri" data-en="Weddings & Gala Dinners">Vjenčanja i gala večeri</button>
+                <button data-filter="muzicki-festival" data-sr="Muzički festival" data-en="Music Festival">Muzički festival</button>
+                <button data-filter="scenski-spektakl" data-sr="Scenski spektakl" data-en="Stage Spectacle">Scenski spektakl</button>
+                <button data-filter="korporativni-dogadjaji" data-sr="Korporativni događaji" data-en="Corporate Events">Korporativni događaji</button>
+            </div>
+            <div class="gallery-grid">
+                <!-- Vjenčanja i gala večeri (6 slika) -->
+                <div class="gallery-item" data-full="vjencanje1.jpg" data-category="vjencanja-gala">
+                    <img src="vjencanje1.jpg" alt="Vjenčanja i gala večeri 1">
+                </div>
+                <div class="gallery-item" data-full="vjencanje2.jpg" data-category="vjencanja-gala">
+                    <img src="vjencanje2.jpg" alt="Vjenčanja i gala večeri 2">
+                </div>
+                <div class="gallery-item" data-full="vencanje3.jpg" data-category="vjencanja-gala">
+                    <img src="vencanje3.jpg" alt="Vjenčanja i gala večeri 3">
+                </div>
+                <div class="gallery-item" data-full="vjencanje4.jpg" data-category="vjencanja-gala">
+                    <img src="vjencanje4.jpg" alt="Vjenčanja i gala večeri 4">
+                </div>
+                <div class="gallery-item" data-full="festival5.jpg" data-category="vjencanja-gala">
+                    <img src="festival5.jpg" alt="Vjenčanja i gala večeri 5">
+                </div>
+                <div class="gallery-item" data-full="vjencanje6.jpg" data-category="vjencanja-gala">
+                    <img src="vjencanje6.jpg" alt="Vjenčanja i gala večeri 6">
+                </div>
+
+                <!-- Muzički festival (6 slika) -->
+                <div class="gallery-item" data-full="festival1.jpg" data-category="muzicki-festival">
+                    <img src="festival1.jpg" alt="Muzički festival 1">
+                </div>
+                <div class="gallery-item" data-full="festival2.jpg" data-category="muzicki-festival">
+                    <img src="festival2.jpg" alt="Muzički festival 2">
+                </div>
+                <div class="gallery-item" data-full="festival3.jpg" data-category="muzicki-festival">
+                    <img src="festival3.jpg" alt="Muzički festival 3">
+                </div>
+                <div class="gallery-item" data-full="festival4.jpg" data-category="muzicki-festival">
+                    <img src="festival4.jpg" alt="Muzički festival 4">
+                </div>
+                <div class="gallery-item" data-full="festival-V.jpg" data-category="muzicki-festival">
+                    <img src="festival-V.jpg" alt="Muzički festival 5">
+                </div>
+                <div class="gallery-item" data-full="festival6.jpg" data-category="muzicki-festival">
+                    <img src="festival6.jpg" alt="Muzički festival 6">
+                </div>
+
+                <!-- Scenski spektakl (6 slika) -->
+                <div class="gallery-item" data-full="scenski1.jpg" data-category="scenski-spektakl">
+                    <img src="scenski1.jpg" alt="Scenski spektakl 1">
+                </div>
+                <div class="gallery-item" data-full="scenski2.jpg" data-category="scenski-spektakl">
+                    <img src="scenski2.jpg" alt="Scenski spektakl 2">
+                </div>
+                <div class="gallery-item" data-full="efekti1.jpg" data-category="scenski-spektakl">
+                    <img src="efekti1.jpg" alt="Scenski spektakl 3">
+                </div>
+                <div class="gallery-item" data-full="scenski4.jpg" data-category="scenski-spektakl">
+                    <img src="scenski4.jpg" alt="Scenski spektakl 4">
+                </div>
+                <div class="gallery-item" data-full="scenski5.jpg" data-category="scenski-spektakl">
+                    <img src="scenski5.jpg" alt="Scenski spektakl 5">
+                </div>
+                <div class="gallery-item" data-full="scenski6.jpg" data-category="scenski-spektakl">
+                    <img src="scenski6.jpg" alt="Scenski spektakl 6">
+                </div>
+
+                <!-- Korporativni događaji (6 slika) -->
+                <div class="gallery-item" data-full="korporativno1.jpg" data-category="korporativni-dogadjaji">
+                    <img src="korporativno1.jpg" alt="Korporativni događaj 1">
+                </div>
+                <div class="gallery-item" data-full="korporativno2.jpg" data-category="korporativni-dogadjaji">
+                    <img src="korporativno2.jpg" alt="Korporativni događaj 2">
+                </div>
+                <div class="gallery-item" data-full="korporativno3.jpg" data-category="korporativni-dogadjaji">
+                    <img src="korporativno3.jpg" alt="Korporativni događaj 3">
+                </div>
+                <div class="gallery-item" data-full="korporativno4.jpg" data-category="korporativni-dogadjaji">
+                    <img src="korporativno4.jpg" alt="Korporativni događaj 4">
+                </div>
+                <div class="gallery-item" data-full="korporativno5.jpg" data-category="korporativni-dogadjaji">
+                    <img src="korporativno5.jpg" alt="Korporativni događaj 5">
+                </div>
+                <div class="gallery-item" data-full="korporativno6.jpg" data-category="korporativni-dogadjaji">
+                    <img src="korporativno6.jpg" alt="Korporativni događaj 6">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="modal" class="modal">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <span class="modal-prev" onclick="prevImage()">❮</span>
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="Uvećana slika">
+        </div>
+        <span class="modal-next" onclick="nextImage()">❯</span>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 data-sr="Navigacija" data-en="Navigation">Navigacija</h3>
+                <ul>
+                    <li><a href="index.html" data-sr="Početna" data-en="Home">Početna</a></li>
+                    <li><a href="O-nama.html" data-sr="O nama" data-en="About Us">O nama</a></li>
+                    <li><a href="Galerija.html" data-sr="Galerija" data-en="Gallery">Galerija</a></li>
+                    <li><a href="Kontakti.html" data-sr="Kontakti" data-en="Contacts">Kontakti</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-sr="Kontakt" data-en="Contact">Kontakt</h3>
+                <ul>
+                    <li><a href="tel:+38268256063" data-sr="+382 68 256 063" data-en="+382 68 256 063">+382 68 256 063</a></li>
+                    <li><a href="mailto:info@uniqueproduction.me" data-sr="info@uniqueproduction.me" data-en="info@uniqueproduction.me">info@uniqueproduction.me</a></li>
+                    <li><span data-sr="Podgorica, Crna Gora" data-en="Podgorica, Montenegro">Podgorica, Crna Gora</span></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-sr="Pratite nas" data-en="Follow Us">Pratite nas</h3>
+               <div class="social-links">
+                    <a href="https://www.youtube.com/@quartetuniquemne" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/all_stars_strings_montenegro?igsh=MWM5aW13MXIzc3l1bQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-credit" data-sr="© 2025 <a href='https://cryptogorac.com' target='_blank'>cryptogorac.com</a> | Sva prava zadržana." data-en="© 2025 <a href='https://cryptogorac.com' target='_blank'>cryptogorac.com</a> | All rights reserved.">
+            © 2025 <a href="https://cryptogorac.com" target="_blank">cryptogorac.com</a> | Sva prava zadržana.
+        </div>
+    </footer>
+
+    <script>
+        let currentIndex = 0;
+        let filteredImages = [];
+        let allImages = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const filterButtons = document.querySelectorAll('.gallery-filters button');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const languageFlags = document.querySelectorAll('.language-flag');
+            const elements = document.querySelectorAll('[data-sr][data-en]');
+
+            // Hamburger menu toggle
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Inicijalno prikazivanje svih slika i čuvanje svih slika
+            allImages = Array.from(galleryItems).map(item => ({
+                src: item.getAttribute('data-full'),
+                category: item.getAttribute('data-category')
+            }));
+            filteredImages = [...allImages];
+
+            // Postavljanje klik događaja
+            function attachClickEvents() {
+                galleryItems.forEach((item, index) => {
+                    // Uklanjamo stare događaje da izbegnemo dupliranje
+                    item.removeEventListener('click', item.clickHandler);
+                    item.clickHandler = () => {
+                        // Pronalazimo indeks slike u filteredImages
+                        const src = item.getAttribute('data-full');
+                        const filteredIndex = filteredImages.findIndex(img => img.src === src);
+                        if (filteredIndex !== -1) {
+                            openModal(filteredIndex);
+                        }
+                    };
+                    item.addEventListener('click', item.clickHandler);
+                });
+            }
+
+            attachClickEvents();
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const filter = button.getAttribute('data-filter');
+                    filterGallery(filter);
+                    attachClickEvents(); // Osvežavamo klik događaje nakon filtriranja
+                });
+            });
+
+            // Language switcher
+            function updateLanguage(lang) {
+                elements.forEach(element => {
+                    let text = lang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-sr');
+                    element.innerHTML = text;
+                });
+
+                document.documentElement.lang = lang;
+                document.title = lang === 'en' ? document.querySelector('title').getAttribute('data-en') : document.querySelector('title').getAttribute('data-sr');
+
+                languageFlags.forEach(flag => {
+                    flag.classList.remove('active');
+                    if (flag.getAttribute('data-lang') === lang) {
+                        flag.classList.add('active');
+                    }
+                });
+
+                localStorage.setItem('selectedLanguage', lang);
+            }
+
+            // Load saved language or default to 'sr'
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'sr';
+            updateLanguage(savedLanguage);
+
+            // Language flag click handlers
+            languageFlags.forEach(flag => {
+                flag.addEventListener('click', () => {
+                    const lang = flag.getAttribute('data-lang');
+                    updateLanguage(lang);
+                });
+            });
+        });
+
+        function filterGallery(filter) {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            filteredImages = [];
+
+            galleryItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                if (filter === 'all' || category === filter) {
+                    item.style.display = 'block';
+                    filteredImages.push({
+                        src: item.getAttribute('data-full'),
+                        category: category
+                    });
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function openModal(index) {
+            currentIndex = index;
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modal-image');
+            modalImage.src = filteredImages[currentIndex].src;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+            document.getElementById('modal-image').src = filteredImages[currentIndex].src;
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % filteredImages.length;
+            document.getElementById('modal-image').src = filteredImages[currentIndex].src;
+        }
+
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this || e.target.classList.contains('modal-content')) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('modal').style.display === 'flex') {
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'Escape') closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

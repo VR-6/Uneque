@@ -1,0 +1,766 @@
+
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-sr="Kontakti - UNICQUE" data-en="Contacts - UNICQUE">Kontakti - UNICQUE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Osnovni reset stila za sve elemente */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Stil za telo stranice (body) */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Stil za navigacioni bar */
+        .navbar {
+            background-color: #000;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Stil za logo u navigacionom baru */
+        .logo {
+            margin-left: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Stil za sliku loga unutar .logo */
+      .logo {
+            margin-left: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            border-radius: 18px;
+            border: 3px solid #a78bfa;
+        }
+
+        .logo img:hover {
+            transform: scale(1.15);
+        }
+
+        /* Stil za hamburger meni */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Stil za listu linkova u navigaciji */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #a78bfa;
+        }
+
+        /* Stil za padajući meni */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dropdown-content a:hover {
+            color: #a78bfa;
+            background-color: #1a1a1a;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Language switcher styles - Pomerene ispod navigacionog bara na desnu stranu */
+        .language-switcher {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 10px 20px;
+            position: fixed;
+            top: 85px;
+            right: 0;
+            z-index: 999;
+        }
+
+        .language-flag {
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            border: 2px solid #a78bfa;
+            border-radius: 3px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .language-flag:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .language-flag.active {
+            border-color: #7c3aed;
+            opacity: 1;
+        }
+
+        /* Main content styles */
+        main {
+            padding: 120px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #f7f7f7 0%, #e8e8e8 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .contact-info h2 {
+            font-size: 40px;
+            color: #222;
+            margin-bottom: 25px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .contact-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #a78bfa, transparent);
+        }
+
+        .contact-info p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-details li:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-details i {
+            margin-right: 15px;
+            color: #a78bfa;
+            font-size: 24px;
+        }
+
+        .contact-details a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: #a78bfa;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.1), transparent);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .contact-form h3 {
+            font-size: 28px;
+            color: #222;
+            margin-bottom: 25px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-form form {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            background: transparent;
+            font-size: 16px;
+            color: #333;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #a78bfa;
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        .contact-form textarea {
+            height: 140px;
+            resize: none;
+        }
+
+        .contact-form button {
+            background: linear-gradient(45deg, #a78bfa, #7c3aed);
+            color: #fff;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: pulseShadow 1.5s infinite;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-3px);
+        }
+
+        .contact-form .hidden {
+            display: none !important;
+        }
+
+        /* Animacije */
+        @keyframes pulseShadow {
+            0% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
+            50% { box-shadow: 0 15px 40px rgba(167, 139, 250, 0.7); }
+            100% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 40px 20px 20px;
+            margin-top: auto;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #a78bfa;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin: 12px 0;
+            position: relative;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #a78bfa;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            margin: 0 15px 0 0;
+            font-size: 28px;
+            color: #fff;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #a78bfa;
+            transform: scale(1.2);
+        }
+
+        .footer-credit {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #ccc;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-credit a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-credit a:hover {
+            color: #a78bfa;
+            transform: none;
+        }
+
+        /* Mobilna optimizacija */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: #000;
+                width: 100%;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .nav-links a {
+                font-size: 20px;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background-color: #1a1a1a;
+                width: 100%;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .logo {
+                margin-left: 5px;
+            }
+
+            .logo img {
+                height: 50px;
+                width: auto;
+                margin: 5px;
+            }
+
+            .navbar {
+                padding: 10px;
+                min-height: 60px;
+            }
+
+            .hamburger {
+                margin-right: 10px;
+            }
+
+            .language-switcher {
+                top: 85px;
+                padding: 8px 15px;
+            }
+
+            main {
+                padding: 80px 15px 40px;
+            }
+
+            .contact-container {
+                flex-direction: column;
+                padding: 20px;
+                gap: 30px;
+            }
+
+            .contact-info h2 {
+                font-size: 32px;
+            }
+
+            .contact-info p,
+            .contact-details li {
+                font-size: 16px;
+            }
+
+            .contact-form {
+                padding: 30px;
+            }
+
+            .contact-form h3 {
+                font-size: 24px;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 0 15px;
+            }
+
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+            }
+
+            .social-links a {
+                margin: 0 15px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 40px;
+                width: auto;
+                margin: 5px;
+            }
+
+            .navbar {
+                padding: 8px;
+                min-height: 50px;
+            }
+
+            .nav-links {
+                top: 50px;
+            }
+
+            .language-switcher {
+                top: 75px;
+                padding: 6px 10px;
+            }
+
+            .language-flag {
+                width: 25px;
+                height: 15px;
+            }
+
+            .contact-info h2 {
+                font-size: 28px;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+
+            .contact-form h3 {
+                font-size: 20px;
+            }
+
+            .contact-form button {
+                padding: 14px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo1.jpg" alt="logo Uniqueproduction">
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-sr="Početna" data-en="Home">Početna</a></li>
+                <li><a href="O-nama.html" data-sr="O nama" data-en="About Us">O nama</a></li>
+                <li class="dropdown">
+                    <a href="#usluge" data-sr="Usluge" data-en="Services">Usluge</a>
+                    <div class="dropdown-content">
+                        <a href="Muzicki-performansi.html" data-sr="Muzički performansi" data-en="Musical Performances">Muzički performansi</a>
+                        <a href="Scenski-art-performansi.html" data-sr="Scenski art performansi" data-en="Stage Art Performances">Scenski art performansi</a>
+                        <a href="Specijalni-efekti-tehnicka-produkcija.html" data-sr="Specijalni efekti & Tehnička produkcija" data-en="Special Effects & Technical Production">Specijalni efekti & Tehnička produkcija</a>
+                        <a href="Ostale-usluge.html" data-sr="Ostale usluge" data-en="Other Services">Ostale usluge</a>
+                    </div>
+                </li>
+                <li><a href="Galerija.html" data-sr="Galerija" data-en="Gallery">Galerija</a></li>
+                <li><a href="Kontakti.html" data-sr="Kontakti" data-en="Contacts">Kontakti</a></li>
+            </ul>
+        </nav>
+        <div class="language-switcher">
+            <img src="srpski.png" alt="Srpski" class="language-flag active" data-lang="sr">
+            <img src="engleski.png" alt="English" class="language-flag" data-lang="en">
+        </div>
+    </header>
+
+    <main>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 data-sr="Kontaktirajte nas" data-en="Contact Us">Kontaktirajte nas</h2>
+                <p data-sr="Želimo da čujemo od vas! Bilo da planirate događaj ili imate pitanje o našim nastupima, slobodno nam se obratite putem telefona, e-maila ili forme pored." data-en="We’d love to hear from you! Whether you’re planning an event or have a question about our performances, feel free to reach out via phone, email, or the form beside.">Želimo da čujemo od vas! Bilo da planirate događaj ili imate pitanje o našim nastupima, slobodno nam se obratite putem telefona, e-maila ili forme pored.</p>
+                <ul class="contact-details">
+                    <li><i class="fas fa-phone"></i><a href="tel:+38268256063" data-sr="+382 68 256 063" data-en="+382 68 256 063">+382 68 256 063</a></li>
+                    <li><i class="fas fa-envelope"></i><a href="mailto:info@uniqueproduction.me" data-sr="info@uniqueproduction.me" data-en="info@uniqueproduction.me">info@uniqueproduction.me</a></li>
+                    <li><i class="fas fa-map-marker-alt"></i><span data-sr="Podgorica, Crna Gora" data-en="Podgorica, Montenegro">Podgorica, Crna Gora</span></li>
+                </ul>
+            </div>
+            <div class="contact-form">
+                <h3 data-sr="Pošaljite poruku" data-en="Send a Message">Pošaljite poruku</h3>
+                <form action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="text" name="name" placeholder="Ime/Name" data-sr-placeholder="Vaše ime" data-en-placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="e-mail" data-sr-placeholder="Vaš e-mail" data-en-placeholder="Your Email" required>
+                    <textarea name="message" placeholder="poruka/message" data-sr-placeholder="Vaša poruka" data-en-placeholder="Your Message" required></textarea>
+                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                    <button type="submit" data-sr="Pošalji" data-en="Send">Pošalji</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 data-sr="Navigacija" data-en="Navigation">Navigacija</h3>
+                <ul>
+                    <li><a href="index.html" data-sr="Početna" data-en="Home">Početna</a></li>
+                    <li><a href="O-nama.html" data-sr="O nama" data-en="About Us">O nama</a></li>
+                    <li><a href="Galerija.html" data-sr="Galerija" data-en="Gallery">Galerija</a></li>
+                    <li><a href="Kontakti.html" data-sr="Kontakti" data-en="Contacts">Kontakti</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-sr="Kontakt" data-en="Contact">Kontakt</h3>
+                <ul>
+                    <li><a href="tel:+38268256063" data-sr="+382 68 256 063" data-en="+382 68 256 063">+382 68 256 063</a></li>
+                    <li><a href="mailto:info@uniqueproduction.me" data-sr="info@uniqueproduction.me" data-en="info@uniqueproduction.me">info@uniqueproduction.me</a></li>
+                    <li><span data-sr="Podgorica, Crna Gora" data-en="Podgorica, Montenegro">Podgorica, Crna Gora</span></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-sr="Pratite nas" data-en="Follow Us">Pratite nas</h3>
+                 <div class="social-links">
+                    <a href="https://www.youtube.com/@quartetuniquemne" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/all_stars_strings_montenegro?igsh=MWM5aW13MXIzc3l1bQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-credit" data-sr="© 2025 <a href='https://cryptogorac.com' target='_blank'>cryptogorac.com</a> | Sva prava zadržana." data-en="© 2025 <a href='https://cryptogorac.com' target='_blank'>cryptogorac.com</a> | All rights reserved.">
+            © 2025 <a href="https://cryptogorac.com" target="_blank">cryptogorac.com</a> | Sva prava zadržana.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const languageFlags = document.querySelectorAll('.language-flag');
+            const elements = document.querySelectorAll('[data-sr][data-en]');
+
+            // Hamburger menu toggle
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Language switcher
+            function updateLanguage(lang) {
+                elements.forEach(element => {
+                    let text = lang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-sr');
+                    element.innerHTML = text;
+
+                    // Update placeholder attributes if they exist
+                    if (element.hasAttribute('data-sr-placeholder') && element.hasAttribute('data-en-placeholder')) {
+                        element.placeholder = lang === 'en' ? element.getAttribute('data-en-placeholder') : element.getAttribute('data-sr-placeholder');
+                    }
+                });
+
+                document.documentElement.lang = lang;
+                document.title = lang === 'en' ? document.querySelector('title').getAttribute('data-en') : document.querySelector('title').getAttribute('data-sr');
+
+                languageFlags.forEach(flag => {
+                    flag.classList.remove('active');
+                    if (flag.getAttribute('data-lang') === lang) {
+                        flag.classList.add('active');
+                    }
+                });
+
+                localStorage.setItem('selectedLanguage', lang);
+            }
+
+            // Load saved language or default to 'sr'
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'sr';
+            updateLanguage(savedLanguage);
+
+            // Language flag click handlers
+            languageFlags.forEach(flag => {
+                flag.addEventListener('click', () => {
+                    const lang = flag.getAttribute('data-lang');
+                    updateLanguage(lang);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

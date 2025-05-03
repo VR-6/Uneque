@@ -1,0 +1,1783 @@
+
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title data-sr="UNIQUE Production" data-en="UNIQUE Production">UNIQUE Production</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/x-icon" href="logo.jpg">
+    <style>
+        /* Osnovni reset stila za sve elemente */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Stil za telo stranice (body) */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Stil za navigacioni bar */
+        .navbar {
+            background-color: #000;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            margin-left: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            border-radius: 18px;
+            border: 3px solid #a78bfa;
+        }
+
+        .logo img:hover {
+            transform: scale(1.15);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #a78bfa;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dropdown-content a:hover {
+            color: #a78bfa;
+            background-color: #1a1a1a;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Language switcher styles - Pomerene ispod navigacionog bara na desnu stranu */
+        .language-switcher {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 10px 20px;
+            position: fixed;
+            top: 85px;
+            right: 0;
+            z-index: 999;
+        }
+
+        .language-flag {
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            border: 2px solid #a78bfa;
+            border-radius: 3px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .language-flag:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .language-flag.active {
+            border-color: #7c3aed;
+            opacity: 1;
+        }
+
+        /* Stil za hero sekciju */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero .subtitle {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 28px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.5s backwards;
+        }
+
+        .hero .highlight {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .hero .cta-button {
+            background: linear-gradient(45deg, #a78bfa, #7c3aed);
+            color: #fff;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            animation: pulseShadow 1.5s infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .hero .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Animacije */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseShadow {
+            0% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
+            50% { box-shadow: 0 15px 40px rgba(167, 139, 250, 0.7); }
+            100% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
+        }
+
+        /* Main content styles */
+        main {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #f7f7f7 0%, #e8e8e8 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .section {
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .about-section h2 {
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .about-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #a78bfa, transparent);
+        }
+
+        .about-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+
+        .about-section .highlight {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .intro-section {
+            animation: circleShadow 3s infinite ease-in-out;
+        }
+
+        .intro-section h2 {
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .intro-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #a78bfa, transparent);
+        }
+
+        .intro-section .quote {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 24px;
+            color: #555;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .intro-section .quote-author {
+            font-size: 20px;
+            color: #a78bfa;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        @keyframes circleShadow {
+            0% { box-shadow: 10px 10px 20px rgba(167, 139, 250, 0.5); }
+            25% { box-shadow: -10px 10px 20px rgba(167, 139, 250, 0.5); }
+            50% { box-shadow: -10px -10px 20px rgba(167, 139, 250, 0.5); }
+            75% { box-shadow: 10px -10px 20px rgba(167, 139, 250, 0.5); }
+            100% { box-shadow: 10px 10px 20px rgba(167, 139, 250, 0.5); }
+        }
+
+        .gallery-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .gallery-item h3 {
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px;
+            text-align: center;
+            background-color: #fff;
+            width: 100%;
+            border-radius: 0 0 10px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(167, 139, 250, 0.4);
+        }
+
+        .gallery-item:hover h3 {
+            color: #a78bfa;
+        }
+
+        .services-grid {
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .services-grid h2 {
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 30px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .services-grid h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #a78bfa, transparent);
+        }
+
+        .services-grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .service-item p {
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px;
+            text-align: center;
+            background-color: #fff;
+            width: 100%;
+            border-radius: 0 0 10px 10px;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(167, 139, 250, 0.4);
+        }
+
+        .service-item:hover p {
+            color: #a78bfa;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #a78bfa, #7c3aed);
+            color: #fff;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: pulseShadow 1.5s infinite;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+
+  /* Stil za prilagođeni kontejner */
+.custom-container {
+    width: 100%; /* Zauzima celu širinu kao ostale sekcije */
+    max-width: 1200px; /* Usklađeno sa glavnim kontejnerom (main) */
+    padding: 40px; /* Usklađeno sa paddingom ostalih sekcija */
+    background: linear-gradient(135deg, #f9f9f9, #a78bfa); /* Gradient od skoro bele do ljubičaste */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px; /* Usklađeno sa zaobljenim uglovima */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Osnovna senka */
+    margin: 0 auto; /* Centriranje */
+    animation: fadeInUp 1s ease, circlingShadow 4s infinite ease-in-out; /* Animacija ulaza i kruženja senke */
+}
+
+/* Stil za polje slike */
+.image-placeholder {
+    width: 400px;
+    height: 400px;
+    background-color: #ffffff; /* Bela pozadina za kontrast */
+    border: 2px solid #a78bfa; /* Ljubičasti okvir u stilu sajta */
+    border-radius: 10px; /* Zaobljeni uglovi */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Tranzicija za hover efekat */
+}
+
+/* Stil za sliku unutar polja */
+.image-placeholder img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* Prilagođava sliku bez izobličenja */
+    border-radius: 8px; /* Blago zaobljenje unutar okvira */
+    animation: pulseImage 2s infinite ease-in-out; /* Pulsiranje slike */
+}
+
+/* Hover efekat za polje slike */
+.image-placeholder:hover {
+    transform: scale(1.05); /* Efekat uvećanja kao kod galerije */
+    box-shadow: 0 10px 20px rgba(167, 139, 250, 0.4); /* Ljubičasta senka pri hoveru */
+}
+
+/* Animacija pulsiranja slike */
+@keyframes pulseImage {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Animacija kružeće ljubičaste senke */
+@keyframes circlingShadow {
+    0% {
+        box-shadow: 10px 10px 20px rgba(167, 139, 250, 0.6), /* Desno dole */
+                   -10px -10px 20px rgba(167, 139, 250, 0.2); /* Levo gore (slabije) */
+    }
+    25% {
+        box-shadow: -10px 10px 20px rgba(167, 139, 250, 0.6), /* Levo dole */
+                    10px -10px 20px rgba(167, 139, 250, 0.2); /* Desno gore (slabije) */
+    }
+    50% {
+        box-shadow: -10px -10px 20px rgba(167, 139, 250, 0.6), /* Levo gore */
+                    10px 10px 20px rgba(167, 139, 250, 0.2); /* Desno dole (slabije) */
+    }
+    75% {
+        box-shadow: 10px -10px 20px rgba(167, 139, 250, 0.6), /* Desno gore */
+                   -10px 10px 20px rgba(167, 139, 250, 0.2); /* Levo dole (slabije) */
+    }
+    100% {
+        box-shadow: 10px 10px 20px rgba(167, 139, 250, 0.6), /* Povratak na desno dole */
+                   -10px -10px 20px rgba(167, 139, 250, 0.2); /* Levo gore (slabije) */
+    }
+}
+
+/* Optimizacija za mobilne uređaje */
+@media (max-width: 768px) {
+    .custom-container {
+        padding: 20px; /* Smanjen padding za manje ekrane, usklađeno sa .section */
+    }
+
+    .image-placeholder {
+        width: 300px; /* Smanjena veličina za tablete */
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-container {
+        padding: 15px; /* Još manji padding za mobilne telefone */
+    }
+
+    .image-placeholder {
+        width: 200px; /* Smanjena veličina za male ekrane */
+        height: 200px;
+    }
+
+    /* Smanjivanje senke za manje ekrane da ne izgleda pretrpano */
+    @keyframes circlingShadow {
+        0% {
+            box-shadow: 5px 5px 10px rgba(167, 139, 250, 0.6),
+                       -5px -5px 10px rgba(167, 139, 250, 0.2);
+        }
+        25% {
+            box-shadow: -5px 5px 10px rgba(167, 139, 250, 0.6),
+                        5px -5px 10px rgba(167, 139, 250, 0.2);
+        }
+        50% {
+            box-shadow: -5px -5px 10px rgba(167, 139, 250, 0.6),
+                        5px 5px 10px rgba(167, 139, 250, 0.2);
+        }
+        75% {
+            box-shadow: 5px -5px 10px rgba(167, 139, 250, 0.6),
+                       -5px 5px 10px rgba(167, 139, 250, 0.2);
+        }
+        100% {
+            box-shadow: 5px 5px 10px rgba(167, 139, 250, 0.6),
+                       -5px -5px 10px rgba(167, 139, 250, 0.2);
+        }
+    }
+}
+
+
+
+        /* Stilovi za kontakt sekciju */
+        .contact-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h2 {
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .contact-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #a78bfa, transparent);
+        }
+
+        .contact-info p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        .contact-details {
+            list-style: none;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .contact-details li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-details i {
+            margin-right: 10px;
+            color: #a78bfa;
+            font-size: 20px;
+        }
+
+        .contact-details a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: #a78bfa;
+        }
+
+        .contact-form {
+            flex: 1;
+        }
+
+        .contact-form h3 {
+            font-size: 24px;
+            color: #222;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            padding: 12px;
+            font-size: 16px;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            border-color: #a78bfa;
+            box-shadow: 0 0 5px rgba(167, 139, 250, 0.5);
+            outline: none;
+        }
+
+        .contact-form textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            background: linear-gradient(45deg, #a78bfa, #7c3aed);
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.5);
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 40px 20px 20px;
+            margin-top: auto;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #a78bfa;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin: 12px 0;
+            position: relative;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #a78bfa;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            margin: 0 15px 0 0;
+            font-size: 28px;
+            color: #fff;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #a78bfa;
+            transform: scale(1.2);
+        }
+
+        .footer-credit {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #ccc;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-credit a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-credit a:hover {
+            color: #a78bfa;
+            transform: none;
+        }
+
+        /* Mobilna optimizacija */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: #000;
+                width: 100%;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .nav-links a {
+                font-size: 20px;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background-color: #1a1a1a;
+                width: 100%;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .logo {
+                margin-left: 5px;
+            }
+
+            .logo img {
+                height: 50px;
+                width: auto;
+                margin: 5px;
+            }
+
+            .navbar {
+                padding: 10px;
+                min-height: 60px;
+            }
+
+            .hamburger {
+                margin-right: 10px;
+            }
+
+            .language-switcher {
+                top: 85px;
+                padding: 8px 15px;
+            }
+
+            main {
+                padding: 40px 15px;
+            }
+
+            .home-container {
+                gap: 40px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .about-section h2,
+            .intro-section h2,
+            .services-grid h2,
+            .contact-info h2 {
+                font-size: 28px;
+            }
+
+            .about-section p,
+            .contact-info p {
+                font-size: 16px;
+            }
+
+            .intro-section .quote {
+                font-size: 20px;
+            }
+
+            .intro-section .quote-author {
+                font-size: 18px;
+            }
+
+            .gallery-preview {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item img {
+                height: 150px;
+            }
+
+            .gallery-item h3 {
+                font-size: 14px;
+            }
+
+            .services-grid {
+                padding: 20px;
+            }
+
+            .services-grid-container {
+                grid-template-columns: 1fr;
+            }
+
+            .service-item img {
+                height: 150px;
+            }
+
+            .service-item p {
+                font-size: 16px;
+            }
+
+            .contact-container {
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+            }
+
+            .contact-form h3 {
+                font-size: 20px;
+            }
+
+            .contact-form input[type="text"],
+            .contact-form input[type="email"],
+            .contact-form textarea {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .contact-form button {
+                font-size: 14px;
+                padding: 16px;
+                border-radius: 25px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 0 15px;
+            }
+
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+            }
+
+            .social-links a {
+                margin: 0 15px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 40px;
+                width: auto;
+                margin: 5px;
+            }
+
+            .navbar {
+                padding: 8px;
+                min-height: 50px;
+            }
+
+            .nav-links {
+                top: 50px;
+            }
+
+            .language-switcher {
+                top: 75px;
+                padding: 6px 10px;
+            }
+
+            .language-flag {
+                width: 25px;
+                height: 15px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .hero .cta-button {
+                padding: 14px 30px;
+                font-size: 16px;
+            }
+
+            .about-section h2,
+            .intro-section h2,
+            .services-grid h2,
+            .contact-info h2 {
+                font-size: 24px;
+            }
+
+            .about-section p,
+            .contact-info p {
+                font-size: 14px;
+            }
+
+            .intro-section .quote {
+                font-size: 18px;
+            }
+
+            .intro-section .quote-author {
+                font-size: 16px;
+            }
+
+            .gallery-item img {
+                height: 120px;
+            }
+
+            .gallery-item h3 {
+                font-size: 12px;
+            }
+
+            .service-item img {
+                height: 120px;
+            }
+
+            .service-item p {
+                font-size: 14px;
+            }
+
+            .contact-details {
+                font-size: 16px;
+            }
+
+            .contact-details i {
+                font-size: 18px;
+            }
+        }
+
+        /* Image Container */
+
+.image-container {
+    width: 1300px;
+    height: 300px;
+    max-width: 100%;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(167, 138, 250, 0.7); /* Much larger purple shadow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff; /* Fallback background */
+}
+
+.feature-image {
+    width: 1300px;
+    height: 250px;
+    object-fit: cover; /* Ensures image fills container without distortion */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.feature-image:hover {
+    transform: scale(1.05); /* Subtle zoom on hover, consistent with your site */
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .image-container {
+        width: 100%;
+        height: auto;
+        box-shadow: 0 15px 45px rgba(167, 138, 250, 0.6); /* Large shadow, slightly reduced for mobile */
+    }
+
+    .feature-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1300 / 250; /* Maintains aspect ratio on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .image-container {
+        margin: 15px auto;
+        box-shadow: 0 10px 30px rgba(167, 138, 250, 0.5); /* Still large but optimized for small screens */
+    }
+}
+
+  /* Nova sekcija za testimonijale */
+.testimonials-section {
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    animation: circleShadow 3s infinite ease-in-out;
+}
+
+.testimonials-section h2 {
+    font-size: 36px;
+    color: #222;
+    margin-bottom: 40px;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.testimonials-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(to right, #a78bfa, transparent);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+    justify-items: center; /* Centrira kartice unutar grida */
+}
+
+.testimonial-card {
+    background: linear-gradient(135deg, #ffffff, #f3e8ff);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+    max-width: 350px; /* Ograničava širinu kartice za bolji raspored */
+    width: 100%; /* Osigurava da kartica zauzima prostor unutar grida */
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(167, 139, 250, 0.3);
+    background: linear-gradient(135deg, #f3e8ff, #e0d4ff);
+}
+
+.testimonial-card .client-img {
+    width: 95px;
+    height: 80px;
+    border-radius: 10px; /* Adjusted for square with slightly rounded corners */
+    margin: 0 auto 20px;
+    border: 3px solid #a78bfa;
+    object-fit: cover;
+}
+
+.testimonial-card p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.testimonial-card h3 {
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: 'Georgia', serif;
+}
+
+.testimonial-card span {
+    font-size: 18px;
+    color: #a78bfa;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+}
+
+/* Responzivnost za sekciju komentara */
+@media (max-width: 768px) {
+    .testimonials-section {
+        padding: 20px;
+    }
+
+    .testimonials-section h2 {
+        font-size: 28px;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .testimonial-card {
+        padding: 20px;
+        max-width: 100%; /* Na manjim ekranima kartica zauzima punu širinu */
+    }
+
+    .testimonial-card .client-img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .testimonial-card p {
+        font-size: 16px;
+    }
+
+    .testimonial-card h3 {
+        font-size: 18px;
+    }
+
+    .testimonial-card span {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonials-section h2 {
+        font-size: 24px;
+    }
+
+    .testimonial-card {
+        padding: 15px;
+    }
+
+    .testimonial-card .client-img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .testimonial-card p {
+        font-size: 14px;
+    }
+
+    .testimonial-card h3 {
+        font-size: 16px;
+    }
+
+    .testimonial-card span {
+        font-size: 18px;
+    }
+}
+
+
+/* Stil za sekciju partnerstva */
+.partnership-section {
+    padding: 40px 20px; /* Usklađeno sa paddingom ostalih sekcija */
+    max-width: 1400px; /* Maksimalna širina za veće ekrane */
+    margin: 0 auto; /* Centriranje */
+    background: linear-gradient(135deg, #f7f7f7, #e8e8e8); /* Pozadina u stilu main */
+    border-radius: 15px; /* Zaobljeni uglovi, kao kod drugih sekcija */
+    text-align: center; /* Centriranje sadržaja, uključujući h1 */
+}
+
+/* Stil za h1 naslov */
+.partnership-section h1 {
+    font-size: 36px; /* Veličina slična drugim naslovima */
+    color: #222; /* Tamna boja teksta, usklađena sa sajtom */
+    margin-bottom: 30px; /* Razmak između naslova i kontejnera */
+    font-weight: 700; /* Podebljana težina, kao kod drugih naslova */
+    position: relative;
+    padding-bottom: 10px; /* Prostor za podvlačenje */
+}
+
+.partnership-section h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Centriranje linije */
+    width: 60px; /* Širina linije, usklađena sa drugim podvlačenjima */
+    height: 4px; /* Debljina linije */
+    background: linear-gradient(to right, #a78bfa, transparent); /* Ljubičasti gradient, kao u drugim sekcijama */
+}
+
+/* Stil za kontejner slike */
+.partnership-container {
+    width: 1300px; /* Fiksna širina za desktop */
+    height: 650px; /* Fiksna visina za desktop */
+    max-width: 100%; /* Prilagođava se roditeljskom kontejneru */
+    margin: 0 auto; /* Centriranje */
+    overflow: hidden; /* Sprečava prelivanje slike */
+    border-radius: 10px; /* Zaobljeni uglovi, usklađeno sa dizajnom */
+    background-color: #fff; /* Bela pozadina kao fallback */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Stil za sliku */
+.partnership-image {
+    width: 100%; /* Popunjava kontejner */
+    height: 100%; /* Popunjava kontejner */
+    object-fit: cover; /* Slika popunjava prostor bez izobličenja */
+    display: block;
+    border-radius: 10px; /* Usklađeno sa kontejnerom */
+}
+
+/* Responzivnost za mobilne uređaje */
+@media (max-width: 768px) {
+    .partnership-section {
+        padding: 20px 15px; /* Smanjen padding za tablete */
+    }
+
+    .partnership-section h1 {
+        font-size: 28px; /* Smanjena veličina za tablete */
+        margin-bottom: 20px; /* Smanjen razmak */
+    }
+
+    .partnership-container {
+        width: 100%; /* Puna širina ekrana */
+        height: auto; /* Visina se prilagođava */
+        aspect-ratio: 1300 / 650; /* Održava proporcije slike */
+        border-radius: 8px; /* Blago smanjeni uglovi */
+    }
+
+    .partnership-image {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .partnership-section {
+        padding: 15px 10px; /* Minimalni padding za male ekrane */
+    }
+
+    .partnership-section h1 {
+        font-size: 24px; /* Smanjena veličina za male ekrane */
+        margin-bottom: 15px; /* Minimalni razmak */
+    }
+
+    .partnership-section h1::after {
+        width: 50px; /* Blago kraća linija za male ekrane */
+        height: 3px; /* Tanja linija */
+    }
+
+    .partnership-container {
+        border-radius: 6px; /* Još manji uglovi za mobilne */
+    }
+}
+
+    /* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: rgba(128, 128, 128, 0.3); /* Transparent gray */
+    border: 2px solid #a78bfa; /* Purple border */
+    border-radius: 50%; /* Circular shape */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    z-index: 1000;
+}
+
+.back-to-top i {
+    color: #a78bfa; /* Purple arrow */
+    font-size: 20px;
+}
+
+.back-to-top:hover {
+    background-color: rgba(128, 128, 128, 0.5); /* Slightly darker gray on hover */
+    transform: scale(1.1); /* Subtle zoom effect */
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Ensure button is accessible and focusable */
+.back-to-top:focus {
+    outline: 2px solid #a78bfa;
+    outline-offset: 2px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo1.jpg" alt="logo Uniqueproduction">
+                </a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-sr="Početna" data-en="Home">Početna</a></li>
+                <li><a href="O-nama.html" data-sr="O nama" data-en="About Us">O nama</a></li>
+                <li class="dropdown">
+                    <a href="#usluge" data-sr="Usluge" data-en="Services">Usluge</a>
+                    <div class="dropdown-content">
+                        <a href="Muzicki-performansi.html" data-sr="Muzički performansi" data-en="Musical Performances">Muzički performansi</a>
+                        <a href="Scenski-art-performansi.html" data-sr="Scenski Art performansi" data-en="Stage Art Performances">Scenski Art performansi</a>
+                        <a href="Specijalni-efekti-tehnicka-produkcija.html" data-sr="Specijalni efekti & Tehnička produkcija" data-en="Special Effects & Technical Production">Specijalni efekti & Tehnička produkcija</a>
+                        <a href="Ostale-usluge.html" data-sr="Ostale usluge" data-en="Other Services">Ostale usluge</a>
+                    </div>
+                </li>
+                <li><a href="Galerija.html" data-sr="Galerija" data-en="Gallery">Galerija</a></li>
+                <li><a href="Kontakti.html" data-sr="Kontakti" data-en="Contacts">Kontakti</a></li>
+            </ul>
+        </nav>
+        <div class="language-switcher">
+            <img src="srpski.png" alt="Srpski" class="language-flag active" data-lang="sr">
+            <img src="engleski.png" alt="English" class="language-flag" data-lang="en">
+        </div>
+    </header>
+
+    <section class="hero">
+        <video autoplay muted loop playsinline>
+            <source src="video-hero123.mp4" type="video/mp4">
+            
+        </video>
+        <div class="hero-content">
+            <h1>
+  <span class='highlight'>UNIQUE</span> Production
+</h1>
+            <p class="subtitle" data-sr="Svaki događaj može biti poseban. Na nama je da ga učinimo <span class='highlight'>UNIQUE</span>." data-en="Every event can be special. It’s up to us to make it <span class='highlight'>UNIQUE</span>.">Svaki događaj može biti poseban. Na nama je da ga učinimo <span class="highlight">UNIQUE</span>.</p>
+            <a href="Kontakti.html" class="cta-button" data-sr="Kontaktirajte nas" data-en="Contact Us">Kontaktirajte nas</a>
+        </div>
+    </section>
+
+    <main>
+        <div class="section about-section">
+            <h2 data-sr="O nama" data-en="About Us">O nama</h2>
+            <p data-sr="Dobrodošli u <span class='highlight'>Unique Production</span>, produkcijsku agenciju specijalizovanu za muzičke performanse, umjetničke spektakle i organizaciju događaja. Mi spajamo kreativnost i visoki profesionalizam kako bismo kreirali nezaboravne evente – od luksuznih gala večeri i privatnih proslava, do velikih scenskih produkcija i korporativnih događaja." data-en="Welcome to <span class='highlight'>Unique Production</span>, a production agency specializing in musical performances, artistic spectacles, and event organization. We blend creativity and high professionalism to create unforgettable events – from luxurious gala dinners and private celebrations to large-scale stage productions and corporate events.">Dobrodošli u <span class="highlight">Unique Production</span>, produkcijsku agenciju specijalizovanu za muzičke performanse, umjetničke spektakle i organizaciju događaja. Mi spajamo kreativnost i visoki profesionalizam kako bismo kreirali nezaboravne evente – od luksuznih gala večeri i privatnih proslava, do velikih scenskih produkcija i korporativnih događaja.</p>
+            <p data-sr="<b>Bilo da je riječ o svečanim gala večerima, muzičko-umjetničkim festivalima, luksuznim privatnim događajima ili korporativnim proslavama, <span class='highlight'>Unique Production</span> donosi vrhunski umjetnički i produkcijski standard, prilagođen svakom klijentu</b>." data-en="<b>Whether it’s formal gala dinners, music and art festivals, luxurious private events, or corporate celebrations, <span class='highlight'>Unique Production</span> delivers top-tier artistic and production standards tailored to each client.</b>"><b>Bilo da je riječ o svečanim gala večerima, muzičko-umjetničkim festivalima, luksuznim privatnim događajima ili korporativnim proslavama, <span class="highlight">Unique Production</span> donosi vrhunski umjetnički i produkcijski standard, prilagođen svakom klijentu.</b></p>
+        </div>
+
+        <div class="home-container">
+            <div class="section intro-section">
+                <h2 data-sr="Naša misija" data-en="Our Mission">Naša misija</h2>
+                <p class="quote" data-sr="“Moja misija je stvaranje <span class='highlight'>UNIQUE</span> koncepata i kreativnih rješenja koja svaki događaj pretvaraju u autentično iskustvo.”" data-en="“My mission is to create <span class='highlight'>UNIQUE</span> concepts and creative solutions that transform every event into an authentic experience.”">“Moja misija je stvaranje <span class="highlight">UNIQUE</span> koncepata i kreativnih rješenja koja svaki događaj pretvaraju u autentično iskustvo.”</p>
+                <p class="quote-author" data-sr="– Verica Čuljković" data-en="– Verica Čuljković">– Verica Čuljković</p>
+            </div>
+
+            <div class="services-grid">
+                <h2 data-sr="Naše usluge" data-en="Our Services">Naše usluge</h2>
+                <div class="services-grid-container">
+                    <a href="Muzicki-performansi.html" class="service-item">
+                        <img src="naslovna.jpg" alt="Muzički performansi">
+                        <p data-sr="Muzički performansi" data-en="Musical Performances">Muzički performansi</p>
+                    </a>
+                    <a href="Scenski-art-performansi.html" class="service-item">
+                        <img src="Scenski art performansi.jpg" alt="Scenski Art performansi">
+                        <p data-sr="Scenski Art performansi" data-en="Stage Art Performances">Scenski Art performansi</p>
+                    </a>
+                    <a href="Specijalni-efekti-tehnicka-produkcija.html" class="service-item">
+                        <img src="vjencanje6.jpg" alt="Specijalni efekti & Tehnička produkcija">
+                        <p data-sr="Specijalni efekti & Tehnička produkcija" data-en="Special Effects & Technical Production">Specijalni efekti & Tehnička produkcija</p>
+                    </a>
+                    <a href="Ostale-usluge.html" class="service-item">
+                        <img src="dodatne usluge.jpg" alt="Ostale usluge">
+                        <p data-sr="Ostale usluge" data-en="Other Services">Ostale usluge</p>
+                    </a>
+                </div>
+            </div>
+
+     
+        <div class="image-container">
+    <img src="reklama.jpg" alt="Feature Image" class="feature-image">
+
+</div>
+
+
+<div class="testimonials-section">
+    <h2 data-sr="Naši klijenti kažu" data-en="What Our Clients Say">Naši klijenti kažu</h2>
+    <div class="testimonials-grid">
+        <a href="https://esteticanews.me" class="testimonial-card" target="_blank">
+            <img src="estetica.jpg" alt="Klijent 1" class="client-img">
+            <p data-sr="“Rad sa <b>Unique Production</b> timom bio je istinsko zadovoljstvo. Potpuno su preuzeli organizaciju našeg eventa povodom lansiranja portala i svaki segment – od koncepta do realizacije – izveden je vrhunski. <b>Unique tim</b> je produkcija kojoj s povjerenjem prepuštamo i sve buduće projekte.”
+" data-en="“Working with the <b>Unique Production</b> team was an absolute pleasure. They handled every aspect of our portal launch event with excellence – from concept to execution. <b>Unique is a team</b> we fully trust and will continue to work with on all future projects.”">“Rad sa <b>Unique Production</b> timom bio je istinsko zadovoljstvo. Potpuno su preuzeli organizaciju našeg eventa povodom lansiranja portala i svaki segment – od koncepta do realizacije – izveden je vrhunski. <b>Unique tim</b> je produkcija kojoj s povjerenjem prepuštamo i sve buduće projekte.”
+</p>
+            <h3 data-sr="Estetica News" data-en="Estetica News">Estetica News</h3>
+            <span data-sr="www.esteticanews.me" data-en="www.esteticanews.me">www.esteticanews.me</span>
+        </a>
+
+         <a href="https://www.hyatt.com/hyatt-regency/en-US/tivrk-hyatt-regency-kotor-bay-resort" class="testimonial-card" target="_blank">
+            <img src="hajat12.jpg" alt="Klijent 2" class="client-img">
+            <p data-sr="Imali smo zadovoljstvo sarađivati sa <b>Unique Production</b>, izuzetnom produkcijom, tokom njihovih nastupa u našem hotelu. Njihova profesionalnost, umjetnički kvalitet i posvećenost ostavili su snažan utisak na naše goste i osoblje.<b> Verica</b> je svojim profesionalnim pristupom, otvorenom komunikacijom i umjetničkim doprinosom značajno obogatila naše događaje koji su bili nezaboravni. Posebno cijenimo njenu spremnost na prilagođavanje zahtjevima hotela i naših gostiju.<b> Verica je zasigurno umjetnica koju bismo uvijek rado ponovo ugostili i preporučili svima koji traže vrhunskog muzičkog saradnika</b>." data-en="We had the pleasure of collaborating with <b>Unique Production</b>, an exceptional production team, during their performances at our hotel. Their professionalism, artistic quality, and dedication left a strong impression on both our guests and staff. <b> Verica</b>, with her professional approach, open communication, and artistic contribution, significantly enriched our events, making them truly unforgettable. We particularly appreciate her willingness to adapt to the hotel’s requirements and the needs of our guests. <b> Verica is undoubtedly an artist we would always be delighted to host again and recommend to anyone seeking a top-tier musical collaborator</b>.">Imali smo zadovoljstvo sarađivati sa <b>Unique Production</b>, izuzetnom produkcijom, tokom njihovih nastupa u našem hotelu. Njihova profesionalnost, umjetnički kvalitet i posvećenost ostavili su snažan utisak na naše goste i osoblje. <b> Verica</b> je svojim profesionalnim pristupom, otvorenom komunikacijom i umjetničkim doprinosom značajno obogatila naše događaje koji su bili nezaboravni. Posebno cijenimo njenu spremnost na prilagođavanje zahtjevima hotela i naših gostiju. <b> Verica je zasigurno umjetnica koju bismo uvijek rado ponovo ugostili i preporučili svima koji traže vrhunskog muzičkog saradnika</b>.</p>
+            <h3 data-sr="Tamara R." data-en="Tamara R.">Tamara R.</h3>
+            <span data-sr="Marketing Director, Hyatt Regency Kotor Bay Resort" data-en="Marketing Director, Hyatt Regency Kotor Bay Resort">Marketing Director, Hyatt Regency Kotor Bay Resort</span>
+        </a>
+
+            <a href="https://example.com/client3" class="testimonial-card" target="_blank">
+            <img src="jaksic.jpg" alt="Klijent 3" class="client-img">
+            <p data-sr="Velika čast mi je bila sarađivati sa <b>Unique Production</b> na čelu sa <b>Vericom Čuljković</b>, koja je uvijek nasmijana, puna energije i moram reći – brutalni perfekcionista! Predstavljanje mog automobila za novu trkačku sezonu u vinariji <b>Storia di Pietra</b> bio je projekat koji bi bez problema stao rame uz rame sa bilo kojim iz svijeta <b>Formule 1</b>. Moju ideju i zamisao Verica je zahvaljujući njenom trudu, profesionalizmu i izuzetnoj muzičkoj nadarenosti sa lakoćom pretvorila u stvarnost – <b>bilo je magično.</b>
+" data-en="It was a great honor to collaborate with <b>Unique Production</b>, led by <b>Verica Čuljković</b>, who is always smiling, full of energy — and I must say, an absolute perfectionist! The presentation of my car for the new racing season at the <b>Storia di Pietra</b> winery was a project that could easily stand shoulder to shoulder with any from the <b>Formula 1 world</b>. My idea and vision were effortlessly brought to life by Verica, thanks to her dedication, professionalism, and exceptional musical talent — <b>it was magical.</b>
+">Velika čast mi je bila sarađivati sa <b>Unique Production</b> na čelu sa <b>Vericom Čuljković</b>, koja je uvijek nasmijana, puna energije i moram reći – brutalni perfekcionista! Predstavljanje mog automobila za novu trkačku sezonu u vinariji <b>Storia di Pietra</b> bio je projekat koji bi bez problema stao rame uz rame sa bilo kojim iz svijeta Formule 1. Moju ideju i zamisao Verica je zahvaljujući njenom trudu, profesionalizmu i izuzetnoj muzičkoj nadarenosti sa lakoćom pretvorila u stvarnost – <b>bilo je magično.</b>
+</p>
+            <h3 data-sr="Vasilije Jakšić" data-en="Vasilije Jakšić">Vasilije Jakšić</h3>
+            <span data-sr="European Motorsport Champion 2022." data-en="European Motorsport Champion 2022.">European Motorsport Champion 2022.</span>
+        </a>
+
+       
+       
+    </div>
+</div>
+
+   
+
+
+            <div class="section">
+                <h2 data-sr="Pogledajte našu galeriju" data-en="View Our Gallery">Pogledajte našu galeriju</h2>
+                <div class="gallery-preview">
+                    <a href="Galerija.html" class="gallery-item">
+                        <img src="vjencanje1.jpg" alt="Slika 1">
+                        <h3 data-sr="Vjenčanja i gala večeri" data-en="Weddings & Gala Dinners">Vjenčanja i gala večeri</h3>
+                    </a>
+                    <a href="Galerija.html" class="gallery-item">
+                        <img src="festival2.jpg" alt="Slika 2">
+                        <h3 data-sr="Muzički festival" data-en="Music Festival">Muzički festival</h3>
+                    </a>
+                    <a href="Galerija.html" class="gallery-item">
+                        <img src="efekti1.jpg" alt="Slika 3">
+                        <h3 data-sr="Scenski spektakl" data-en="Stage Spectacle">Scenski spektakl</h3>
+                    </a>
+                    <a href="Galerija.html" class="gallery-item">
+                        <img src="korporativno1.jpg" alt="Slika 4">
+                        <h3 data-sr="Korporativni događaj" data-en="Corporate Event">Korporativni događaj</h3>
+                    </a>
+                </div>
+            </div>
+
+         <main>
+    <div class="home-container">
+        <!-- Ostale sekcije -->
+        <section class="partnership-section">
+           <h1 data-sr="Saradnje na koje smo ponosni" data-en="Collaborations We Are Proud Of">Saradnje na koje smo ponosni</h1>
+            <div class="partnership-container">
+                <img src="partnerstva.jpg" alt="Partnerstvo slika" class="partnership-image">
+            </div>
+        </section>
+    </div>
+</main>
+
+            <div class="custom-container">
+    <div class="image-placeholder">
+        <!-- Ovde možeš ubaciti sliku -->
+        <img src="logo3.jpg" alt="Opis slike">
+    </div>
+</div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2 data-sr="Kontaktirajte nas" data-en="Contact Us">Kontaktirajte nas</h2>
+                    <p data-sr="Želimo da čujemo od vas! Bilo da planirate događaj ili imate pitanje o našim nastupima, slobodno nam se obratite putem telefona, e-maila ili forme pored." data-en="We’d love to hear from you! Whether you’re planning an event or have a question about our performances, feel free to reach out via phone, email, or the form beside.">Želimo da čujemo od vas! Bilo da planirate događaj ili imate pitanje o našim nastupima, slobodno nam se obratite putem telefona, e-maila ili forme pored.</p>
+                    <ul class="contact-details">
+                        <li><i class="fas fa-phone"></i><a href="tel:+38268256063" data-sr="+382 68 256 063" data-en="+382 68 256 063">+382 68 256 063</a></li>
+                        <li><i class="fas fa-envelope"></i><a href="mailto:info@uniqueproduction.me" data-sr="info@uniqueproduction.me" data-en="info@uniqueproduction.me">info@uniqueproduction.me</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i><span data-sr="Podgorica, Crna Gora" data-en="Podgorica, Montenegro">Podgorica, Crna Gora</span></li>
+                    </ul>
+                </div>
+                <div class="contact-form">
+                    <h3 data-sr="Pošaljite poruku" data-en="Send a Message">Pošaljite poruku</h3>
+                    <form action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="918407a4-589a-4204-8d04-aba559e5f5d3">
+                        <input type="text" name="name" placeholder="Ime/Name" data-sr-placeholder="Vaše ime" data-en-placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder=" e-mail" data-sr-placeholder="Vaš e-mail" data-en-placeholder="Your Email" required>
+                        <textarea name="message" placeholder="poruka/message" data-sr-placeholder="Vaša poruka" data-en-placeholder="Your Message" required></textarea>
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                        <button type="submit" data-sr="Pošalji" data-en="Send">Pošalji</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+<button class="back-to-top" aria-label="Back to Top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 data-sr="Navigacija" data-en="Navigation">Navigacija</h3>
+                <ul>
+                    <li><a href="index.html" data-sr="Početna" data-en="Home">Početna</a></li>
+                    <li><a href="O-nama.html" data-sr="O nama" data-en="About Us">O nama</a></li>
+                    <li><a href="Galerija.html" data-sr="Galerija" data-en="Gallery">Galerija</a></li>
+                    <li><a href="Kontakti.html" data-sr="Kontakti" data-en="Contacts">Kontakti</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-sr="Kontakt" data-en="Contact">Kontakt</h3>
+                <ul>
+                    <li><a href="tel:+38268256063" data-sr="+382 68 256 063" data-en="+382 68 256 063">+382 68 256 063</a></li>
+                    <li><a href="mailto:info@uniqueproduction.me" data-sr="info@uniqueproduction.me" data-en="info@uniqueproduction.me">info@uniqueproduction.me</a></li>
+                    <li><span data-sr="Podgorica, Crna Gora" data-en="Podgorica, Montenegro">Podgorica, Crna Gora</span></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 data-sr="Pratite nas" data-en="Follow Us">Pratite nas</h3>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/@quartetuniquemne" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/all_stars_strings_montenegro?igsh=MWM5aW13MXIzc3l1bQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-credit" data-sr="© 2025 <a href='https://cryptogorac.com' target='_blank'>cryptogorac.com</a> | Sva prava zadržana." data-en="© 2025 <a href='https://cryptogorac.com' target='_blank'>cryptogorac.com</a> | All rights reserved.">
+            © 2025 <a href="https://cryptogorac.com" target="_blank">cryptogorac.com</a> | Sva prava zadržana.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const languageFlags = document.querySelectorAll('.language-flag');
+            const elements = document.querySelectorAll('[data-sr][data-en]');
+
+            // Hamburger menu toggle
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Language switcher
+            function updateLanguage(lang) {
+                elements.forEach(element => {
+                    let text = lang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-sr');
+                    element.innerHTML = text;
+
+                    // Update placeholder attributes if they exist
+                    if (element.hasAttribute('data-sr-placeholder') && element.hasAttribute('data-en-placeholder')) {
+                        element.placeholder = lang === 'en' ? element.getAttribute('data-en-placeholder') : element.getAttribute('data-sr-placeholder');
+                    }
+                });
+
+                document.documentElement.lang = lang;
+                document.title = lang === 'en' ? document.querySelector('title').getAttribute('data-en') : document.querySelector('title').getAttribute('data-sr');
+
+                languageFlags.forEach(flag => {
+                    flag.classList.remove('active');
+                    if (flag.getAttribute('data-lang') === lang) {
+                        flag.classList.add('active');
+                    }
+                });
+
+                localStorage.setItem('selectedLanguage', lang);
+            }
+
+            // Load saved language or default to 'sr'
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'sr';
+            updateLanguage(savedLanguage);
+
+            // Language flag click handlers
+            languageFlags.forEach(flag => {
+                flag.addEventListener('click', () => {
+                    const lang = flag.getAttribute('data-lang');
+                    updateLanguage(lang);
+                });
+            });
+        });
+  // Back to Top Button Functionality
+const backToTopButton = document.querySelector('.back-to-top');
+
+if (backToTopButton) {
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+
+    // Smooth scroll to top on click
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+    </script>
+</body>
+</html>
