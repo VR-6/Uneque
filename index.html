@@ -1177,7 +1177,7 @@
     }
 }
 
-  /* sekcija za testimonijale */
+  /* Nova sekcija za testimonijale */
 .testimonials-section {
     padding: 40px;
     background-color: #fff;
@@ -1335,111 +1335,101 @@
 }
 
 
-/* Osnovni stil za sekciju partnerstva */
+/* Stil za sekciju partnerstva */
 .partnership-section {
-    padding: 40px 20px; /* Osnovni padding */
-    max-width: 1300px; /* Maksimalna širina za veće ekrane */
+    padding: 40px 20px; /* Usklađeno sa paddingom ostalih sekcija */
+    max-width: 1400px; /* Maksimalna širina za veće ekrane */
     margin: 0 auto; /* Centriranje */
     background: linear-gradient(135deg, #f7f7f7, #e8e8e8); /* Pozadina u stilu main */
-    border-radius: 15px; /* Zaobljeni uglovi */
-    text-align: center; /* Centriranje sadržaja */
+    border-radius: 15px; /* Zaobljeni uglovi, kao kod drugih sekcija */
+    text-align: center; /* Centriranje sadržaja, uključujući h1 */
 }
 
 /* Stil za h1 naslov */
 .partnership-section h1 {
-    font-size: 36px; /* Osnovna veličina za desktop */
-    color: #222; /* Tamna boja teksta */
-    margin-bottom: 30px; /* Razmak ispod naslova */
-    font-weight: 700; /* Podebljana težina */
+    font-size: 36px; /* Veličina slična drugim naslovima */
+    color: #222; /* Tamna boja teksta, usklađena sa sajtom */
+    margin-bottom: 30px; /* Razmak između naslova i kontejnera */
+    font-weight: 700; /* Podebljana težina, kao kod drugih naslova */
     position: relative;
     padding-bottom: 10px; /* Prostor za podvlačenje */
 }
 
-/* Podvlačenje za h1 */
 .partnership-section h1::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%); /* Centriranje linije */
-    width: 60px; /* Širina linije */
+    width: 60px; /* Širina linije, usklađena sa drugim podvlačenjima */
     height: 4px; /* Debljina linije */
-    background: linear-gradient(to right, #a78bfa, transparent); /* Ljubičasti gradient */
+    background: linear-gradient(to right, #a78bfa, transparent); /* Ljubičasti gradient, kao u drugim sekcijama */
 }
 
-/* Responzivni dizajn */
+/* Stil za kontejner slike */
+.partnership-container {
+    width: 1300px; /* Fiksna širina za desktop */
+    height: 650px; /* Fiksna visina za desktop */
+    max-width: 100%; /* Prilagođava se roditeljskom kontejneru */
+    margin: 0 auto; /* Centriranje */
+    overflow: hidden; /* Sprečava prelivanje slike */
+    border-radius: 10px; /* Zaobljeni uglovi, usklađeno sa dizajnom */
+    background-color: #fff; /* Bela pozadina kao fallback */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-/* Mobilni telefoni (do 576px) */
-@media (max-width: 576px) {
+/* Stil za sliku */
+.partnership-image {
+    width: 100%; /* Popunjava kontejner */
+    height: 100%; /* Popunjava kontejner */
+    object-fit: cover; /* Slika popunjava prostor bez izobličenja */
+    display: block;
+    border-radius: 10px; /* Usklađeno sa kontejnerom */
+}
+
+/* Responzivnost za mobilne uređaje */
+@media (max-width: 768px) {
     .partnership-section {
-        padding: 20px 15px; /* Manji padding za mobilne */
-        border-radius: 10px; /* Malo manji border-radius */
+        padding: 20px 15px; /* Smanjen padding za tablete */
     }
 
     .partnership-section h1 {
-        font-size: 24px; /* Smanjena veličina fonta za mobilne */
-        margin-bottom: 20px; /* Smanjeni razmak */
-        padding-bottom: 8px; /* Smanjeni prostor za podvlačenje */
+        font-size: 28px; /* Smanjena veličina za tablete */
+        margin-bottom: 20px; /* Smanjen razmak */
     }
 
-    .partnership-section h1::after {
-        width: 40px; /* Smanjena širina linije */
-        height: 3px; /* Smanjena debljina linije */
-    }
-}
-
-/* Tableti (576px - 768px) */
-@media (min-width: 577px) and (max-width: 768px) {
-    .partnership-section {
-        padding: 30px 20px; /* Prilagođeni padding za tablete */
-        border-radius: 12px; /* Srednji border-radius */
+    .partnership-container {
+        width: 100%; /* Puna širina ekrana */
+        height: auto; /* Visina se prilagođava */
+        aspect-ratio: 1300 / 650; /* Održava proporcije slike */
+        border-radius: 8px; /* Blago smanjeni uglovi */
     }
 
-    .partnership-section h1 {
-        font-size: 30px; /* Srednja veličina fonta za tablete */
-        margin-bottom: 25px; /* Srednji razmak */
-        padding-bottom: 9px; /* Srednji prostor za podvlačenje */
-    }
-
-    .partnership-section h1::after {
-        width: 50px; /* Srednja širina linije */
-        height: 3px; /* Srednja debljina linije */
+    .partnership-image {
+        width: 100%;
+        height: 100%;
     }
 }
 
-/* Mali laptopi (769px - 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (max-width: 480px) {
     .partnership-section {
-        padding: 35px 20px; /* Prilagođeni padding za male laptope */
-        max-width: 90%; /* Smanjena maksimalna širina za bolju prilagodljivost */
+        padding: 15px 10px; /* Minimalni padding za male ekrane */
     }
 
     .partnership-section h1 {
-        font-size: 32px; /* Blago smanjena veličina fonta */
-        margin-bottom: 28px; /* Srednji razmak */
+        font-size: 24px; /* Smanjena veličina za male ekrane */
+        margin-bottom: 15px; /* Minimalni razmak */
     }
 
     .partnership-section h1::after {
-        width: 55px; /* Blago smanjena širina linije */
-        height: 4px; /* Debljina linije ostaje ista */
-    }
-}
-
-/* Desktop i veći monitori (1025px i više) */
-@media (min-width: 1025px) {
-    .partnership-section {
-        padding: 40px 20px; /* Osnovni padding za desktop */
-        max-width: 1300px; /* Maksimalna širina za velike ekrane */
+        width: 50px; /* Blago kraća linija za male ekrane */
+        height: 3px; /* Tanja linija */
     }
 
-    .partnership-section h1 {
-        font-size: 36px; /* Osnovna veličina fonta za desktop */
-        margin-bottom: 30px; /* Osnovni razmak */
-    }
-
-    .partnership-section h1::after {
-        width: 60px; /* Osnovna širina linije */
-        height: 4px; /* Osnovna debljina linije */
+    .partnership-container {
+        border-radius: 6px; /* Još manji uglovi za mobilne */
     }
 }
 
