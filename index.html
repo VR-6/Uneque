@@ -161,98 +161,152 @@
 
         /* Stil za hero sekciju */
       
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-            padding: 20px;
-            overflow: hidden;
-        }    .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-    }
+        /* Stil za hero sekciju */
+.hero {
+    position: relative;
+    height: 100vh; /* Podrazumevana visina za desktop */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+    overflow: hidden;
+    background-color: #000; /* Fallback pozadina ako video ne radi */
+}
 
-    .hero video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-    }
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Poluprozirni preklop */
+    z-index: 1;
+}
 
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        max-width: 800px;
+.hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Video popunjava prostor bez izobličenja */
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 15px; /* Dodatno prilagođavanje za mobilne */
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    animation: fadeInDown 1s ease;
+}
+
+.hero .subtitle {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 28px;
+    margin-bottom: 30px;
+    animation: fadeInUp 1s ease 0.5s backwards;
+}
+
+.hero .highlight {
+    color: #a78bfa;
+    font-weight: 600;
+}
+
+.hero .cta-button {
+    background: linear-gradient(45deg, #a78bfa, #7c3aed);
+    color: #fff;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    animation: pulseShadow 1.5s infinite;
+    transition: transform 0.3s ease;
+}
+
+.hero .cta-button:hover {
+    transform: translateY(-3px);
+}
+
+/* Animacije */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseShadow {
+    0% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
+    50% { box-shadow: 0 15px 40px rgba(167, 139, 250, 0.7); }
+    100% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
+}
+
+/* Media upiti za mobilne uređaje */
+@media only screen and (max-width: 768px) {
+    .hero {
+        height: auto; /* Sprečava probleme sa viewport-om */
+        min-height: 60vh; /* Minimalna visina za dobar izgled */
+        padding: 10px;
     }
 
     .hero h1 {
-        font-size: 48px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        letter-spacing: 2px;
-        animation: fadeInDown 1s ease;
+        font-size: 32px; /* Smanjena veličina naslova */
+        margin-bottom: 15px;
     }
 
     .hero .subtitle {
-        font-family: 'Georgia', serif;
-        font-style: italic;
-        font-size: 28px;
-        margin-bottom: 30px;
-        animation: fadeInUp 1s ease 0.5s backwards;
-    }
-
-    .hero .highlight {
-        color: #a78bfa;
-        font-weight: 600;
+        font-size: 20px; /* Smanjena veličina podnaslova */
+        margin-bottom: 20px;
     }
 
     .hero .cta-button {
-        background: linear-gradient(45deg, #a78bfa, #7c3aed);
-        color: #fff;
-        padding: 16px 40px;
-        border: none;
-        border-radius: 50px;
-        font-size: 18px;
-        font-weight: 600;
-        text-decoration: none;
-        animation: pulseShadow 1.5s infinite;
-        transition: transform 0.3s ease;
+        padding: 12px 30px; /* Smanjena veličina dugmeta */
+        font-size: 16px; /* Smanjen font dugmeta */
+        animation: none; /* Isključujemo animaciju radi performansi */
     }
 
-    .hero .cta-button:hover {
-        transform: translateY(-3px);
+    .hero-content {
+        max-width: 90%; /* Prilagođavamo sadržaj širini ekrana */
     }
 
-    /* Animacije */
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
+    .hero video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Osiguravamo da video ispravno popunjava prostor */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .hero h1 {
+        font-size: 24px; /* Još manji naslov */
     }
 
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+    .hero .subtitle {
+        font-size: 16px; /* Još manji podnaslov */
     }
 
-    @keyframes pulseShadow {
-        0% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
-        50% { box-shadow: 0 15px 40px rgba(167, 139, 250, 0.7); }
-        100% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
+    .hero .cta-button {
+        padding: 10px 20px; /* Još manje dugme */
+        font-size: 14px; /* Još manji font */
     }
-
+}
 
 
         /* Main content styles */
@@ -1783,6 +1837,104 @@ if (backToTopButton) {
         });
     });
 }
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.querySelector('.hero video');
+    const heroSection = document.querySelector('.hero');
+
+    // Provera da li video postoji
+    if (video) {
+        // Dogadjaj za uspešno učitavanje videa
+        video.addEventListener('loadeddata', () => {
+            console.log('Video uspešno učitan.');
+            video.style.display = 'block'; // Osiguravamo da je video vidljiv
+        });
+
+        // Dogadjaj za greške pri učitavanju videa
+        video.addEventListener('error', (e) => {
+            console.error('Greška pri učitavanju videa:', e);
+            // Pokušaj ponovnog učitavanja videa
+            video.load();
+        });
+
+        // Provera reprodukcije videa
+        video.addEventListener('play', () => {
+            console.log('Video se reprodukuje.');
+        });
+
+        // Ako video ne počne u roku od 5 sekundi, pokušaj ponovnog učitavanja
+        setTimeout(() => {
+            if (video.paused) {
+                console.warn('Video nije počeo sa reprodukcijom, pokušavam ponovo.');
+                video.load();
+                video.play().catch(err => {
+                    console.error('Greška pri pokretanju videa:', err);
+                });
+            }
+        }, 5000);
+    }
+
+    // Postojeći kod za hamburger meni, promenu jezika i back-to-top
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const languageFlags = document.querySelectorAll('.language-flag');
+    const elements = document.querySelectorAll('[data-sr][data-en]');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    function updateLanguage(lang) {
+        elements.forEach(element => {
+            let text = lang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-sr');
+            element.innerHTML = text;
+
+            if (element.hasAttribute('data-sr-placeholder') && element.hasAttribute('data-en-placeholder')) {
+                element.placeholder = lang === 'en' ? element.getAttribute('data-en-placeholder') : element.getAttribute('data-sr-placeholder');
+            }
+        });
+
+        document.documentElement.lang = lang;
+        document.title = lang === 'en' ? document.querySelector('title').getAttribute('data-en') : document.querySelector('title').getAttribute('data-sr');
+
+        languageFlags.forEach(flag => {
+            flag.classList.remove('active');
+            if (flag.getAttribute('data-lang') === lang) {
+                flag.classList.add('active');
+            }
+        });
+
+        localStorage.setItem('selectedLanguage', lang);
+    }
+
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'sr';
+    updateLanguage(savedLanguage);
+
+    languageFlags.forEach(flag => {
+        flag.addEventListener('click', () => {
+            const lang = flag.getAttribute('data-lang');
+            updateLanguage(lang);
+        });
+    });
+
+    const backToTopButton = document.querySelector('.back-to-top');
+    if (backToTopButton) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+});
     </script>
 </body>
 </html>
