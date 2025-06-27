@@ -160,99 +160,147 @@
         }
 
         /* Stil za hero sekciju */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-            padding: 20px;
-            overflow: hidden;
-        }
+        /* Stil za hero sekciju */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+    overflow: hidden;
+}
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
 
-        .hero video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
+.hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-        }
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
 
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            animation: fadeInDown 1s ease;
-        }
+.hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    animation: fadeInDown 1s ease;
+}
 
-        .hero .subtitle {
-            font-family: 'Georgia', serif;
-            font-style: italic;
-            font-size: 28px;
-            margin-bottom: 30px;
-            animation: fadeInUp 1s ease 0.5s backwards;
-        }
+.hero .subtitle {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 28px;
+    margin-bottom: 30px;
+    animation: fadeInUp 1s ease 0.5s backwards;
+}
 
-        .hero .highlight {
-            color: #a78bfa;
-            font-weight: 600;
-        }
+.hero .highlight {
+    color: #a78bfa;
+    font-weight: 600;
+}
 
-        .hero .cta-button {
-            background: linear-gradient(45deg, #a78bfa, #7c3aed);
-            color: #fff;
-            padding: 16px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 600;
-            text-decoration: none;
-            animation: pulseShadow 1.5s infinite;
-            transition: transform 0.3s ease;
-        }
+.hero .cta-button {
+    background: linear-gradient(45deg, #a78bfa, #7c3aed);
+    color: #fff;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    animation: pulseShadow 1.5s infinite;
+    transition: transform 0.3s ease;
+}
 
-        .hero .cta-button:hover {
-            transform: translateY(-3px);
-        }
+.hero .cta-button:hover {
+    transform: translateY(-3px);
+}
 
-        /* Animacije */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* Animacije */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        @keyframes pulseShadow {
-            0% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
-            50% { box-shadow: 0 15px 40px rgba(167, 139, 250, 0.7); }
-            100% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
-        }
+@keyframes pulseShadow {
+    0% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
+    50% { box-shadow: 0 15px 40px rgba(167, 139, 250, 0.7); }
+    100% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
+}
+
+/* Media upiti za mobilne uređaje */
+@media only screen and (max-width: 768px) {
+    .hero {
+        height: auto; /* Sprečava probleme sa viewport-om na mobilnim uređajima */
+        min-height: 60vh; /* Minimalna visina za dobar izgled */
+        padding: 10px; /* Smanjen padding */
+    }
+
+    .hero h1 {
+        font-size: 32px; /* Smanjena veličina naslova */
+        margin-bottom: 15px;
+    }
+
+    .hero .subtitle {
+        font-size: 20px; /* Smanjena veličina podnaslova */
+        margin-bottom: 20px;
+    }
+
+    .hero .cta-button {
+        padding: 12px 30px; /* Smanjena veličina dugmeta */
+        font-size: 16px; /* Smanjen font dugmeta */
+        animation: none; /* Isključujemo animaciju radi performansi */
+    }
+
+    .hero-content {
+        max-width: 90%; /* Prilagođavamo sadržaj širini ekrana */
+        padding: 0 10px;
+    }
+
+ 
+
+/* Za veoma male ekrane (npr. ispod 480px) */
+@media only screen and (max-width: 480px) {
+    .hero h1 {
+        font-size: 24px; /* Još manji naslov */
+    }
+
+    .hero .subtitle {
+        font-size: 16px; /* Još manji podnaslov */
+    }
+
+    .hero .cta-button {
+        padding: 10px 20px; /* Još manje dugme */
+        font-size: 14px; /* Još manji font dugmeta */
+    }
+}
 
         /* Main content styles */
         main {
