@@ -252,6 +252,21 @@
     50% { box-shadow: 0 15px 40px rgba(167, 139, 250, 0.7); }
     100% { box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3); }
 }
+
+@media (max-width: 900px) and (orientation: landscape) {
+    .hero {
+        min-height: 60vh; /* Umesto height: 100vh */
+        height: auto;
+        padding: 40px 10px;
+    }
+    .hero video {
+        min-height: 60vh;
+        height: auto;
+    }
+    .hero-content {
+        padding: 20px 0;
+    }
+}
     /* Main content styles */
     main {
         padding: 60px 20px;
