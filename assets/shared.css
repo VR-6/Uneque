@@ -417,3 +417,4 @@ main .highlight, .section .highlight, .about-section .highlight,
 }
 .services-card .services-list a { align-items: flex-start; text-align: left; }
 .services-card .services-list a::before { margin-top: 2px; }
+.services-card .services-list li { display: flex; justify-content: flex-start; }
