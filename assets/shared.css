@@ -312,3 +312,72 @@ main .highlight, .section .highlight, .about-section .highlight,
 .testimonial-card span { color: #7c3aed; }
 .gallery-filters button { color: #7c3aed; border-color: #7c3aed; }
 .gallery-filters button.active, .gallery-filters button:hover { color: #fff; }
+
+/* --- O nama: ukrasi kartica (tekst netaknut) --- */
+.about-container .section {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.about-container .section:not(.section-3):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 34px rgba(167, 139, 250, 0.25);
+}
+.about-container .section:not(.section-3)::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #a78bfa, #7c3aed, transparent);
+}
+.about-container .section-1 { background: linear-gradient(160deg, #ffffff 65%, #f6f1ff); }
+.about-container .section-1::after,
+.about-container .section-4::after {
+    content: '✦';
+    position: absolute;
+    right: 14px; bottom: 10px;
+    color: rgba(167, 139, 250, 0.4);
+    font-size: 18px;
+}
+.about-container .section-2 {
+    background: linear-gradient(135deg, #ffffff, #f3e8ff);
+    border: 1px solid rgba(167, 139, 250, 0.25);
+}
+.about-container .section-2 .quote { position: relative; padding-top: 36px; }
+.about-container .section-2 .quote::before {
+    content: '\201C';
+    position: absolute;
+    top: -8px; left: 50%;
+    transform: translateX(-50%);
+    font-family: Georgia, serif;
+    font-size: 64px;
+    line-height: 1;
+    color: rgba(124, 58, 237, 0.3);
+}
+.about-container .section-4 { background: linear-gradient(200deg, #ffffff 65%, #f6f1ff); }
+.about-container .section-4 p:first-of-type::first-letter {
+    font-family: Georgia, serif;
+    font-size: 44px;
+    line-height: 0.85;
+    color: #7c3aed;
+    float: left;
+    padding: 5px 8px 0 0;
+}
+.services-card {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(#fff, #fff) padding-box,
+                linear-gradient(135deg, #a78bfa, #7c3aed) border-box;
+    box-shadow: 0 8px 24px rgba(167, 139, 250, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.services-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(167, 139, 250, 0.3); }
+.services-card .services-list li {
+    border-bottom: 1px dashed rgba(167, 139, 250, 0.3);
+    padding: 9px 0;
+    margin: 0;
+    transition: transform 0.25s ease;
+}
+.services-card .services-list li:last-child { border-bottom: none; }
+.services-card .services-list li:hover { transform: translateX(4px); }
+.services-card .services-list li i { color: #7c3aed; }
