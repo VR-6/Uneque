@@ -412,8 +412,15 @@ main .highlight, .section .highlight, .about-section .highlight,
     text-shadow: 0 0 10px rgba(167, 139, 250, 0.45);
 }
 .services-card .services-list a:hover { color: #7c3aed; transform: translateX(3px); }
-@media (max-width: 420px) {
-    .services-card .services-list { grid-template-columns: 1fr; justify-items: center; }
+@media (max-width: 600px) {
+    .services-card .services-list {
+        grid-template-columns: 1fr;
+        justify-items: start;
+        width: fit-content;
+        max-width: 100%;
+        margin: 0 auto;
+        gap: 4px;
+    }
 }
 .services-card .services-list a { align-items: flex-start; text-align: left; }
 .services-card .services-list a::before { margin-top: 2px; }
