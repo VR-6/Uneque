@@ -69,9 +69,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* --- Hero video: ucitava se samo na sirim ekranima (telefon dobija poster) --- */
+    /* --- Hero video: preskace se samo na pravim telefonima (oni dobijaju poster) --- */
     var v = document.querySelector('.hero video[data-src]');
-    if (v && window.matchMedia('(min-width: 769px)').matches) {
+    var touchPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+        && window.matchMedia('(max-width: 820px)').matches;
+    if (v && !touchPhone) {
         v.src = v.getAttribute('data-src');
         v.load();
         var p = v.play();
