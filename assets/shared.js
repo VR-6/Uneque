@@ -116,11 +116,18 @@ document.addEventListener('DOMContentLoaded', function () {
     for (var i = 0; i < 18; i++) {
         var s = document.createElement('span');
         s.className = 'float-spark';
-        s.textContent = glyphs[i % glyphs.length];
-        s.style.left = (4 + Math.random() * 90) + '%';
+        // samo bocna ljubicasta polja — nikad preko loga u sredini
+        s.style.left = (i % 2 === 0)
+            ? (2 + Math.random() * 18) + '%'
+            : (78 + Math.random() * 17) + '%';
         s.style.fontSize = (12 + Math.random() * 16) + 'px';
         s.style.animationDuration = (7 + Math.random() * 8) + 's';
         s.style.animationDelay = (Math.random() * 9) + 's';
+        var inner = document.createElement('span');
+        inner.className = 'sway';
+        inner.textContent = glyphs[i % glyphs.length];
+        inner.style.animationDuration = (2.2 + Math.random() * 2.2) + 's';
+        s.appendChild(inner);
         host.appendChild(s);
     }
 });

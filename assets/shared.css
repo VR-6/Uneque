@@ -294,3 +294,13 @@ body.page-pad .section ul li::before {
     0%, 100% { transform: translateY(0);    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35); }
     50%      { transform: translateY(-8px); box-shadow: 0 24px 46px rgba(124, 58, 237, 0.5); }
 }
+
+/* --- iskre: njihanje levo-desno dok se dizu --- */
+.float-spark .sway {
+    display: inline-block;
+    animation: sparkSway ease-in-out infinite alternate;
+}
+@keyframes sparkSway {
+    from { transform: translateX(-12px) rotate(-8deg); }
+    to   { transform: translateX(12px) rotate(8deg); }
+}
