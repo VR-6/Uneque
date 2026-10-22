@@ -131,3 +131,11 @@ document.addEventListener('DOMContentLoaded', function () {
         host.appendChild(s);
     }
 });
+
+/* aria-expanded prati stanje hamburger menija */
+document.addEventListener('DOMContentLoaded', function () {
+    var hb = document.querySelector('.hamburger');
+    if (hb) hb.addEventListener('click', function () {
+        hb.setAttribute('aria-expanded', hb.classList.contains('active') ? 'true' : 'false');
+    });
+});

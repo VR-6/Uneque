@@ -304,3 +304,11 @@ body.page-pad .section ul li::before {
     from { transform: translateX(-12px) rotate(-8deg); }
     to   { transform: translateX(12px) rotate(8deg); }
 }
+
+/* --- Lighthouse: kontrast i hamburger dugme --- */
+button.hamburger { background: none; border: 0; padding: 6px; cursor: pointer; }
+main .highlight, .section .highlight, .about-section .highlight,
+.intro-section .quote-author, .quote-author,
+.testimonial-card span { color: #7c3aed; }
+.gallery-filters button { color: #7c3aed; border-color: #7c3aed; }
+.gallery-filters button.active, .gallery-filters button:hover { color: #fff; }
