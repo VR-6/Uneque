@@ -106,11 +106,3 @@ document.addEventListener('DOMContentLoaded', function () {
         document.addEventListener('touchstart', kick, { passive: true });
     }
 });
-        // rezerva: neki mobilni pregledaci traze dodir pre autoplay-a
-        var kick = function () {
-            if (v.paused) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
-            document.removeEventListener('touchstart', kick);
-        };
-        document.addEventListener('touchstart', kick, { passive: true });
-    }
-});
