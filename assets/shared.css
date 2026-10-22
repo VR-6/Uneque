@@ -2,7 +2,7 @@
    UNIQUE Production — zajednicki stilovi (polish 2026)
    Iste boje i tekstovi; responzivnost, tempo i scroll dinamika.
    =================================================================== */
-html { scroll-behavior: smooth; scroll-padding-top: 100px; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: 100px; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
 body {
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -421,3 +421,11 @@ main .highlight, .section .highlight, .about-section .highlight,
 
 /* --- Lighthouse: zastavice bez distorzije razmere --- */
 .language-flag { object-fit: cover; }
+
+/* --- Kartice usluga: naizmenicni ulazak sa strana --- */
+html.js-reveal .reveal.reveal-left { transform: translateX(-70px); }
+html.js-reveal .reveal.reveal-right { transform: translateX(70px); }
+html.js-reveal .reveal.reveal-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+    html.js-reveal .reveal-left, html.js-reveal .reveal-right { transform: none; }
+}

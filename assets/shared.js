@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var els = Array.prototype.slice.call(document.querySelectorAll(selectors.join(',')));
     // ne sakrivaj ugnjezdene (npr. karticu unutar vec otkrivene sekcije duplo)
     els.forEach(function (el) { el.classList.add('reveal'); });
+    // kartice usluga ulaze naizmenicno: 1. sleva, 2. zdesna, 3. sleva, 4. zdesna
+    document.querySelectorAll('.services-grid-container .service-item').forEach(function (el, i) {
+        el.classList.add(i % 2 === 0 ? 'reveal-left' : 'reveal-right');
+    });
 
     if ('IntersectionObserver' in window && !reduced) {
         var io = new IntersectionObserver(function (entries) {
@@ -120,6 +124,16 @@ document.addEventListener('DOMContentLoaded', function () {
         tryPlay();
         var kick = function () { if (v.paused) tryPlay(); document.removeEventListener('touchstart', kick); };
         document.addEventListener('touchstart', kick, { passive: true });
+        // stednja: pauziraj video kada hero izadje iz ekrana, nastavi kada se vrati
+        if ('IntersectionObserver' in window) {
+            var vio = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (en.isIntersecting) tryPlay();
+                    else v.pause();
+                });
+            }, { threshold: 0.05 });
+            vio.observe(v);
+        }
     }
 });
 
