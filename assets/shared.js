@@ -47,11 +47,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     return c.classList && c.classList.contains('reveal');
                 });
                 var idx = siblings.indexOf(el);
-                el.style.transitionDelay = Math.min(idx > 0 ? idx * 90 : 0, 360) + 'ms';
+                el.style.transitionDelay = Math.min(idx > 0 ? idx * 60 : 0, 240) + 'ms';
                 el.classList.add('reveal-in');
                 io.unobserve(el);
             });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.01, rootMargin: '250px 0px 200px 0px' });
         els.forEach(function (el) { io.observe(el); });
     } else {
         els.forEach(function (el) { el.classList.add('reveal-in'); });
