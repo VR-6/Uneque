@@ -415,3 +415,5 @@ main .highlight, .section .highlight, .about-section .highlight,
 @media (max-width: 420px) {
     .services-card .services-list { grid-template-columns: 1fr; justify-items: center; }
 }
+.services-card .services-list a { align-items: flex-start; text-align: left; }
+.services-card .services-list a::before { margin-top: 2px; }
