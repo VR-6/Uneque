@@ -106,3 +106,21 @@ document.addEventListener('DOMContentLoaded', function () {
         document.addEventListener('touchstart', kick, { passive: true });
     }
 });
+
+/* Lebdece iskre i note u logo sekciji na pocetnoj */
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var host = document.querySelector('.custom-container');
+    if (!host) return;
+    var glyphs = ['✦', '♪', '✧', '♫'];
+    for (var i = 0; i < 14; i++) {
+        var s = document.createElement('span');
+        s.className = 'float-spark';
+        s.textContent = glyphs[i % glyphs.length];
+        s.style.left = (4 + Math.random() * 90) + '%';
+        s.style.fontSize = (12 + Math.random() * 16) + 'px';
+        s.style.animationDuration = (7 + Math.random() * 8) + 's';
+        s.style.animationDelay = (Math.random() * 9) + 's';
+        host.appendChild(s);
+    }
+});

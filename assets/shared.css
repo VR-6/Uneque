@@ -269,3 +269,28 @@ body.page-pad .section ul li::before {
     .dropdown-content a:last-child { border-bottom: none; }
     .dropdown-content a:hover { background-color: #1d1d1d; }
 }
+
+/* --- Logo sekcija: lebdece iskre/note i disanje loga --- */
+.custom-container { position: relative; overflow: hidden; }
+.custom-container .float-spark {
+    position: absolute;
+    bottom: -30px;
+    pointer-events: none;
+    user-select: none;
+    color: #fff;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: sparkFloat linear infinite;
+    text-shadow: 0 0 12px rgba(124, 58, 237, 0.8);
+}
+@keyframes sparkFloat {
+    0%   { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+    12%  { opacity: 0.9; }
+    75%  { opacity: 0.5; }
+    100% { transform: translateY(-560px) rotate(25deg) scale(1.15); opacity: 0; }
+}
+.image-placeholder { animation: logoBreathe 6s ease-in-out infinite; }
+@keyframes logoBreathe {
+    0%, 100% { transform: translateY(0);    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35); }
+    50%      { transform: translateY(-8px); box-shadow: 0 24px 46px rgba(124, 58, 237, 0.5); }
+}
