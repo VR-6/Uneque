@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var host = document.querySelector('.custom-container');
     if (!host) return;
-    var glyphs = ['✦', '♪', '✧', '♫'];
-    for (var i = 0; i < 14; i++) {
+    var glyphs = ['✦', '♪', '𝄞', '♡', '✧', '♫'];
+    for (var i = 0; i < 18; i++) {
         var s = document.createElement('span');
         s.className = 'float-spark';
         s.textContent = glyphs[i % glyphs.length];
