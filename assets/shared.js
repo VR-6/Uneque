@@ -37,22 +37,28 @@ document.addEventListener('DOMContentLoaded', function () {
         el.classList.add(i % 2 === 0 ? 'reveal-left' : 'reveal-right');
     });
 
-    if ('IntersectionObserver' in window && !reduced) {
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                var el = entry.target;
-                // stagger: redni broj medju "reveal" bracom unutar istog roditelja
-                var siblings = Array.prototype.filter.call(el.parentElement.children, function (c) {
-                    return c.classList && c.classList.contains('reveal');
-                });
-                var idx = siblings.indexOf(el);
-                el.style.transitionDelay = Math.min(idx > 0 ? idx * 60 : 0, 240) + 'ms';
-                el.classList.add('reveal-in');
-                io.unobserve(el);
+    function revealCallback(entries, obs) {
+        entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            // stagger: redni broj medju "reveal" bracom unutar istog roditelja
+            var siblings = Array.prototype.filter.call(el.parentElement.children, function (c) {
+                return c.classList && c.classList.contains('reveal');
             });
-        }, { threshold: 0.01, rootMargin: '250px 0px 200px 0px' });
-        els.forEach(function (el) { io.observe(el); });
+            var idx = siblings.indexOf(el);
+            el.style.transitionDelay = Math.min(idx > 0 ? idx * 60 : 0, 240) + 'ms';
+            el.classList.add('reveal-in');
+            obs.unobserve(el);
+        });
+    }
+    var sideEls = Array.prototype.slice.call(document.querySelectorAll('.services-grid-container .service-item'));
+    if ('IntersectionObserver' in window && !reduced) {
+        // sve ostalo: okida unapred, da nema kasnjenja pri brzom skrolu
+        var io = new IntersectionObserver(revealCallback, { threshold: 0.01, rootMargin: '250px 0px 200px 0px' });
+        els.forEach(function (el) { if (sideEls.indexOf(el) === -1) io.observe(el); });
+        // kartice usluga: okidaju tek kad su zaista vidljive, da se klizanje sa strana vidi
+        var ioSide = new IntersectionObserver(revealCallback, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+        sideEls.forEach(function (el) { ioSide.observe(el); });
     } else {
         els.forEach(function (el) { el.classList.add('reveal-in'); });
     }

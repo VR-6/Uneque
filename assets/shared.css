@@ -424,8 +424,10 @@ main .highlight, .section .highlight, .about-section .highlight,
 
 /* --- Kartice usluga: naizmenicni ulazak sa strana --- */
 @media (max-width: 768px) {
-    html.js-reveal .reveal.reveal-left { transform: translateX(-70px); }
-    html.js-reveal .reveal.reveal-right { transform: translateX(70px); }
+    html.js-reveal .reveal.reveal-left { transform: translateX(-110px); }
+    html.js-reveal .reveal.reveal-right { transform: translateX(110px); }
+    html.js-reveal .reveal.reveal-left,
+    html.js-reveal .reveal.reveal-right { transition-duration: 0.85s, 0.85s; }
 }
 html.js-reveal .reveal.reveal-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
