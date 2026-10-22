@@ -1,6 +1,23 @@
 /* UNIQUE Production — scroll dinamika i interakcije (polish 2026) */
 document.documentElement.classList.add('js-reveal');
 
+/* Nova stranica se uvek otvara od vrha (Back/Forward zadrzava poziciju) */
+(function () {
+    var nav = (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || null;
+    var type = nav ? nav.type : 'navigate';
+    if (!location.hash && type !== 'back_forward') {
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        var html = document.documentElement;
+        var prev = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        window.scrollTo(0, 0);
+        window.addEventListener('load', function () {
+            window.scrollTo(0, 0);
+            html.style.scrollBehavior = prev;
+        });
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', function () {
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
