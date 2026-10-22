@@ -1391,106 +1391,7 @@
 .back-to-top:focus {
     outline: 2px solid #a78bfa;
     outline-offset: 2px;
-}</style><style id="polish-2026">
-.footer-credit .powered-by { display: inline-block; margin-top: 8px; font-size: 12px; color: #999; letter-spacing: 0.3px; }
-.footer-credit .powered-by a { color: #a78bfa; }
-
-/* ===================================================================
-   Polish 2026 — blago osvezenje (iste boje i tekstovi)
-   =================================================================== */
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-}
-img { max-width: 100%; }
-button, input, textarea, select { font: inherit; }
-h1, h2, h3 { text-wrap: balance; }
-p { text-wrap: pretty; }
-::selection { background: #a78bfa; color: #fff; }
-a:focus-visible, button:focus-visible, input:focus-visible,
-textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid #a78bfa;
-    outline-offset: 3px;
-    border-radius: 4px;
-}
-
-/* Navbar: isti crni ton, savremeni staklasti efekat */
-.navbar {
-    background-color: rgba(0, 0, 0, 0.88);
-    -webkit-backdrop-filter: saturate(160%) blur(12px);
-    backdrop-filter: saturate(160%) blur(12px);
-}
-
-/* Fluidni naslovi — iste velicine na desktopu, glatko skaliranje nanize */
-.hero h1 { font-size: clamp(30px, 6vw, 48px); }
-.hero .subtitle { font-size: clamp(18px, 3.4vw, 28px); }
-.about-section h2, .intro-section h2, .services-grid h2, .contact-info h2,
-.gallery-header h2, .testimonials-section h2, .partnership-section h1,
-.intro-section h1, .section h1 { font-size: clamp(26px, 4.6vw, 36px); }
-
-/* Navigacija: hamburger i na tabletima — meni se inace lomi 769-1100px */
-@media (max-width: 1100px) {
-    .hamburger { display: flex; }
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #000;
-        padding: 20px;
-        text-align: center;
-        max-height: calc(100vh - 70px);
-        overflow-y: auto;
-    }
-    .nav-links.active { display: flex; }
-    .nav-links li { margin: 10px 0; }
-    .nav-links a { font-size: 20px; display: inline-block; padding: 6px 12px; }
-    .dropdown-content {
-        position: static;
-        box-shadow: none;
-        background-color: #1a1a1a;
-        width: 100%;
-    }
-}
-
-/* Mobilno citanje + iOS auto-zum na poljima forme */
-@media (max-width: 768px) {
-    .about-section p, .contact-info p, .section p { text-align: left; }
-    .contact-form input[type="text"],
-    .contact-form input[type="email"],
-    .contact-form textarea { font-size: 16px; }
-}
-
-/* Pristupacnost: postuj podesavanje smanjenih animacija */
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    html { scroll-behavior: auto; }
-}
-
-/* --- index: hero visina na mobilnim pregledacima (adresna traka) --- */
-.hero { height: 100vh; height: 100svh; }
-.hero video { height: 100vh; height: 100svh; }
-
-/* --- index: reklamna traka bez fiksne sirine --- */
-.image-container { width: 100%; height: auto; }
-.feature-image { width: 100%; }
-
-/* --- index: galerija-pregled, medjukorak za tablete --- */
-@media (max-width: 1024px) {
-    .gallery-preview { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 640px) {
-    .gallery-preview { grid-template-columns: 1fr; }
-}
-</style>
+}</style><link rel="stylesheet" href="assets/shared.css">
 </head>
 <body>
     <header>
@@ -1520,18 +1421,15 @@ textarea:focus-visible, [tabindex]:focus-visible {
                 <li><a href="Galerija.html" data-sr="Galerija" data-en="Gallery">Galerija</a></li>
                 <li><a href="Kontakti.html" data-sr="Kontakti" data-en="Contacts">Kontakti</a></li>
             </ul>
-        </nav>
-        <div class="language-switcher">
+                    <div class="language-switcher">
             <img src="srpski.png" alt="Srpski" class="language-flag active" data-lang="sr">
             <img src="engleski.png" alt="English" class="language-flag" data-lang="en">
         </div>
+        </nav>
     </header>
 
 <section class="hero">
-    <video autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">
-        <source src="video-hero-opt.mp4" type="video/mp4">
-        
-    </video>
+    <video autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg" data-src="video-hero-opt.mp4"></video>
     <div class="hero-content">
         <h1>  <span class='highlight'>UNIQUE</span> Production</h1>
             <p class="subtitle" data-sr="Svaki događaj može biti poseban. Na nama je da ga učinimo <span class='highlight'>UNIQUE</span>." data-en="Every event can be special. It’s up to us to make it <span class='highlight'>UNIQUE</span>.">Svaki događaj može biti poseban. Na nama je da ga učinimo <span class="highlight">UNIQUE</span>.</p>
@@ -1557,19 +1455,19 @@ textarea:focus-visible, [tabindex]:focus-visible {
             <h2 data-sr="Naše usluge" data-en="Our Services">Naše usluge</h2>
             <div class="services-grid-container">
                 <a href="Muzicki-performansi.html" class="service-item">
-                    <img src="naslovna.jpg" alt="Muzički performansi" loading="lazy" decoding="async">
+                    <img src="naslovna.webp" alt="Muzički performansi" loading="lazy" decoding="async">
                     <p data-sr="Muzički performansi" data-en="Musical Performances">Muzički performansi</p>
                 </a>
                 <a href="Scenski-art-performansi.html" class="service-item">
-                    <img src="Scenski art performansi.jpg" alt="Scenski Art performansi" loading="lazy" decoding="async">
+                    <img src="Scenski art performansi.webp" alt="Scenski Art performansi" loading="lazy" decoding="async">
                     <p data-sr="Scenski Art performansi" data-en="Stage Art Performances">Scenski Art performansi</p>
                 </a>
                 <a href="Specijalni-efekti-tehnicka-produkcija.html" class="service-item">
-                    <img src="vjencanje6.jpg" alt="Specijalni efekti & Tehnička produkcija" loading="lazy" decoding="async">
+                    <img src="vjencanje6-800.webp" alt="Specijalni efekti & Tehnička produkcija" loading="lazy" decoding="async">
                     <p data-sr="Specijalni efekti & Tehnička produkcija" data-en="Special Effects & Technical Production">Specijalni efekti & Tehnička produkcija</p>
                 </a>
                 <a href="Ostale-usluge.html" class="service-item">
-                    <img src="dodatne usluge.jpg" alt="Ostale usluge" loading="lazy" decoding="async">
+                    <img src="dodatne usluge.webp" alt="Ostale usluge" loading="lazy" decoding="async">
                     <p data-sr="Ostale usluge" data-en="Other Services">Ostale usluge</p>
                 </a>
             </div>
@@ -1577,12 +1475,12 @@ textarea:focus-visible, [tabindex]:focus-visible {
 
  
     <div class="image-container">
-<img src="reklama.jpg" alt="Feature Image" class="feature-image" loading="lazy" decoding="async"></div>
+<img src="reklama.webp" alt="Feature Image" class="feature-image" loading="lazy" decoding="async"></div>
 <div class="testimonials-section">
     <h2 data-sr="Naši klijenti kažu" data-en="What Our Clients Say">Naši klijenti kažu</h2>
     <div class="testimonials-grid">
         <a href="https://esteticanews.me" class="testimonial-card" target="_blank">
-            <img src="estetica.jpg" alt="Klijent 1" class="client-img" loading="lazy" decoding="async">
+            <img src="estetica.webp" alt="Klijent 1" class="client-img" loading="lazy" decoding="async">
             <p data-sr="“Rad sa <b>Unique Production</b> timom bio je istinsko zadovoljstvo. Potpuno su preuzeli organizaciju našeg eventa povodom lansiranja portala i svaki segment – od koncepta do realizacije – izveden je vrhunski. <b>Unique tim</b> je produkcija kojoj s povjerenjem prepuštamo i sve buduće projekte.”
 " data-en="“Working with the <b>Unique Production</b> team was an absolute pleasure. They handled every aspect of our portal launch event with excellence – from concept to execution. <b>Unique is a team</b> we fully trust and will continue to work with on all future projects.”">“Rad sa <b>Unique Production</b> timom bio je istinsko zadovoljstvo. Potpuno su preuzeli organizaciju našeg eventa povodom lansiranja portala i svaki segment – od koncepta do realizacije – izveden je vrhunski. <b>Unique tim</b> je produkcija kojoj s povjerenjem prepuštamo i sve buduće projekte.”
 </p>
@@ -1591,14 +1489,14 @@ textarea:focus-visible, [tabindex]:focus-visible {
         </a>
 
      <a href="https://www.hyatt.com/hyatt-regency/en-US/tivrk-hyatt-regency-kotor-bay-resort" class="testimonial-card" target="_blank">
-        <img src="hajat12.jpg" alt="Klijent 2" class="client-img" loading="lazy" decoding="async">
+        <img src="hajat12.webp" alt="Klijent 2" class="client-img" loading="lazy" decoding="async">
         <p data-sr="Imali smo zadovoljstvo sarađivati sa <b>Unique Production</b>, izuzetnom produkcijom, tokom njihovih nastupa u našem hotelu. Njihova profesionalnost, umjetnički kvalitet i posvećenost ostavili su snažan utisak na naše goste i osoblje.<b> Verica</b> je svojim profesionalnim pristupom, otvorenom komunikacijom i umjetničkim doprinosom značajno obogatila naše događaje koji su bili nezaboravni. Posebno cijenimo njenu spremnost na prilagođavanje zahtjevima hotela i naših gostiju.<b> Verica je zasigurno umjetnica koju bismo uvijek rado ponovo ugostili i preporučili svima koji traže vrhunskog muzičkog saradnika</b>." data-en="We had the pleasure of collaborating with <b>Unique Production</b>, an exceptional production team, during their performances at our hotel. Their professionalism, artistic quality, and dedication left a strong impression on both our guests and staff. <b> Verica</b>, with her professional approach, open communication, and artistic contribution, significantly enriched our events, making them truly unforgettable. We particularly appreciate her willingness to adapt to the hotel’s requirements and the needs of our guests. <b> Verica is undoubtedly an artist we would always be delighted to host again and recommend to anyone seeking a top-tier musical collaborator</b>.">Imali smo zadovoljstvo sarađivati sa <b>Unique Production</b>, izuzetnom produkcijom, tokom njihovih nastupa u našem hotelu. Njihova profesionalnost, umjetnički kvalitet i posvećenost ostavili su snažan utisak na naše goste i osoblje. <b> Verica</b> je svojim profesionalnim pristupom, otvorenom komunikacijom i umjetničkim doprinosom značajno obogatila naše događaje koji su bili nezaboravni. Posebno cijenimo njenu spremnost na prilagođavanje zahtjevima hotela i naših gostiju. <b> Verica je zasigurno umjetnica koju bismo uvijek rado ponovo ugostili i preporučili svima koji traže vrhunskog muzičkog saradnika</b>.</p>
         <h3 data-sr="Tamara R." data-en="Tamara R.">Tamara R.</h3>
         <span data-sr="Marketing Director, Hyatt Regency Kotor Bay Resort" data-en="Marketing Director, Hyatt Regency Kotor Bay Resort">Marketing Director, Hyatt Regency Kotor Bay Resort</span>
     </a>
 
         <a href="https://www.instagram.com/vasilije_jaksic/?igsh=MTJjeTBoa2s0ZXVkMw%3D%3D#" class="testimonial-card" target="_blank">
-        <img src="jaksic.jpg" alt="Klijent 3" class="client-img" loading="lazy" decoding="async">
+        <img src="jaksic.webp" alt="Klijent 3" class="client-img" loading="lazy" decoding="async">
         <p data-sr="Velika čast mi je bila sarađivati sa <b>Unique Production</b> na čelu sa <b>Vericom Čuljković</b>, koja je uvijek nasmijana, puna energije i moram reći – brutalni perfekcionista! Predstavljanje mog automobila za novu trkačku sezonu u vinariji <b>Storia di Pietra</b> bio je projekat koji bi bez problema stao rame uz rame sa bilo kojim iz svijeta <b>Formule 1</b>. Moju ideju i zamisao Verica je zahvaljujući njenom trudu, profesionalizmu i izuzetnoj muzičkoj nadarenosti sa lakoćom pretvorila u stvarnost – <b>bilo je magično.</b>" data-en="It was a great honor to collaborate with <b>Unique Production</b>, led by <b>Verica Čuljković</b>, who is always smiling, full of energy — and I must say, an absolute perfectionist! The presentation of my car for the new racing season at the <b>Storia di Pietra</b> winery was a project that could easily stand shoulder to shoulder with any from the <b>Formula 1 world</b>. My idea and vision were effortlessly brought to life by Verica, thanks to her dedication, professionalism, and exceptional musical talent — <b>it was magical.</b>
 ">Velika čast mi je bila sarađivati sa <b>Unique Production</b> na čelu sa <b>Vericom Čuljković</b>, koja je uvijek nasmijana, puna energije i moram reći – brutalni perfekcionista! Predstavljanje mog automobila za novu trkačku sezonu u vinariji <b>Storia di Pietra</b> bio je projekat koji bi bez problema stao rame uz rame sa bilo kojim iz svijeta Formule 1. Moju ideju i zamisao Verica je zahvaljujući njenom trudu, profesionalizmu i izuzetnoj muzičkoj nadarenosti sa lakoćom pretvorila u stvarnost – <b>bilo je magično.</b></p>
             <h3 data-sr="Vasilije Jakšić" data-en="Vasilije Jakšić">Vasilije Jakšić</h3>
@@ -1614,19 +1512,19 @@ textarea:focus-visible, [tabindex]:focus-visible {
             <h2 data-sr="Pogledajte našu galeriju" data-en="View Our Gallery">Pogledajte našu galeriju</h2>
             <div class="gallery-preview">
                 <a href="Galerija.html" class="gallery-item">
-                    <img src="vjencanje1.jpg" alt="Slika 1" loading="lazy" decoding="async">
+                    <img src="vjencanje1-800.webp" alt="Slika 1" loading="lazy" decoding="async">
                     <h3 data-sr="Vjenčanja i gala večeri" data-en="Weddings & Gala Dinners">Vjenčanja i gala večeri</h3>
                 </a>
                 <a href="Galerija.html" class="gallery-item">
-                    <img src="festival2.jpg" alt="Slika 2" loading="lazy" decoding="async">
+                    <img src="festival2-800.webp" alt="Slika 2" loading="lazy" decoding="async">
                     <h3 data-sr="Muzički festival" data-en="Music Festival">Muzički festival</h3>
                 </a>
                 <a href="Galerija.html" class="gallery-item">
-                    <img src="efekti1.jpg" alt="Slika 3" loading="lazy" decoding="async">
+                    <img src="efekti1-800.webp" alt="Slika 3" loading="lazy" decoding="async">
                     <h3 data-sr="Scenski spektakl" data-en="Stage Spectacle">Scenski spektakl</h3>
                 </a>
                 <a href="Galerija.html" class="gallery-item">
-                    <img src="korporativno1.jpg" alt="Slika 4" loading="lazy" decoding="async">
+                    <img src="korporativno1-800.webp" alt="Slika 4" loading="lazy" decoding="async">
                     <h3 data-sr="Korporativni događaj" data-en="Corporate Event">Korporativni događaj</h3>
                 </a>
             </div>
@@ -1638,7 +1536,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
     <section class="partnership-section">
        <h1 data-sr="Saradnje na koje smo ponosni" data-en="Collaborations We Are Proud Of">Saradnje na koje smo ponosni</h1>
         <div class="partnership-container">
-            <img src="partnerstva.jpg" alt="Partnerstvo slika" class="partnership-image" loading="lazy" decoding="async">
+            <img src="partnerstva.webp" alt="Partnerstvo slika" class="partnership-image" loading="lazy" decoding="async">
         </div>
     </section>
 </div></div>
@@ -1646,7 +1544,7 @@ textarea:focus-visible, [tabindex]:focus-visible {
         <div class="custom-container">
 <div class="image-placeholder">
     <!-- Ovde možeš ubaciti sliku -->
-    <img src="logo3.jpg" alt="Opis slike" loading="lazy" decoding="async">
+    <img src="logo3-800.webp" alt="Opis slike" loading="lazy" decoding="async">
 </div></div>
 
         <div class="contact-container">
@@ -1774,6 +1672,7 @@ backToTopButton.addEventListener('click', () => {
     });
 });}
 
-    </script></body>
+    </script><script src="assets/shared.js" defer></script>
+</body>
 </html>
 

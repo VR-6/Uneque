@@ -603,96 +603,9 @@
 
 
     </style>
-<style id="polish-2026">
-.footer-credit .powered-by { display: inline-block; margin-top: 8px; font-size: 12px; color: #999; letter-spacing: 0.3px; }
-.footer-credit .powered-by a { color: #a78bfa; }
-
-/* ===================================================================
-   Polish 2026 — blago osvezenje (iste boje i tekstovi)
-   =================================================================== */
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-}
-img { max-width: 100%; }
-button, input, textarea, select { font: inherit; }
-h1, h2, h3 { text-wrap: balance; }
-p { text-wrap: pretty; }
-::selection { background: #a78bfa; color: #fff; }
-a:focus-visible, button:focus-visible, input:focus-visible,
-textarea:focus-visible, [tabindex]:focus-visible {
-    outline: 2px solid #a78bfa;
-    outline-offset: 3px;
-    border-radius: 4px;
-}
-
-/* Navbar: isti crni ton, savremeni staklasti efekat */
-.navbar {
-    background-color: rgba(0, 0, 0, 0.88);
-    -webkit-backdrop-filter: saturate(160%) blur(12px);
-    backdrop-filter: saturate(160%) blur(12px);
-}
-
-/* Fluidni naslovi — iste velicine na desktopu, glatko skaliranje nanize */
-.hero h1 { font-size: clamp(30px, 6vw, 48px); }
-.hero .subtitle { font-size: clamp(18px, 3.4vw, 28px); }
-.about-section h2, .intro-section h2, .services-grid h2, .contact-info h2,
-.gallery-header h2, .testimonials-section h2, .partnership-section h1,
-.intro-section h1, .section h1 { font-size: clamp(26px, 4.6vw, 36px); }
-
-/* Navigacija: hamburger i na tabletima — meni se inace lomi 769-1100px */
-@media (max-width: 1100px) {
-    .hamburger { display: flex; }
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #000;
-        padding: 20px;
-        text-align: center;
-        max-height: calc(100vh - 70px);
-        overflow-y: auto;
-    }
-    .nav-links.active { display: flex; }
-    .nav-links li { margin: 10px 0; }
-    .nav-links a { font-size: 20px; display: inline-block; padding: 6px 12px; }
-    .dropdown-content {
-        position: static;
-        box-shadow: none;
-        background-color: #1a1a1a;
-        width: 100%;
-    }
-}
-
-/* Mobilno citanje + iOS auto-zum na poljima forme */
-@media (max-width: 768px) {
-    .about-section p, .contact-info p, .section p { text-align: left; }
-    .contact-form input[type="text"],
-    .contact-form input[type="email"],
-    .contact-form textarea { font-size: 16px; }
-}
-
-/* Pristupacnost: postuj podesavanje smanjenih animacija */
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    html { scroll-behavior: auto; }
-}
-
-/* --- stranice usluga: sadrzaj ne pocinje ispod fiksiranog navbara --- */
-main { padding-top: 130px; }
-@media (max-width: 768px) { main { padding-top: 110px; } }
-</style>
+<link rel="stylesheet" href="assets/shared.css">
 </head>
-<body>
+<body class="page-pad">
     <header>
         <nav class="navbar">
             <div class="logo">
@@ -720,18 +633,18 @@ main { padding-top: 130px; }
                 <li><a href="Galerija.html" data-sr="Galerija" data-en="Gallery">Galerija</a></li>
                 <li><a href="Kontakti.html" data-sr="Kontakti" data-en="Contacts">Kontakti</a></li>
             </ul>
-        </nav>
-        <div class="language-switcher">
+                    <div class="language-switcher">
             <img src="srpski.png" alt="Srpski" class="language-flag active" data-lang="sr">
             <img src="engleski.png" alt="English" class="language-flag" data-lang="en">
         </div>
+        </nav>
     </header>
 
     <main>
         <div class="section">
             <h1 data-sr="Ostale usluge" data-en="Other Services">Ostale usluge</h1>
             <p data-sr="Dobrodošli na stranicu posvećenu <span class='highlight'>Ostalim uslugama</span> u okviru Unique Production. Ovde možete saznati više o dodatnim uslugama koje nudimo kako bismo upotpunili vaš događaj i učinili ga jedinstvenim." data-en="Welcome to the page dedicated to <span class='highlight'>Other Services</span> by Unique Production. Here you can learn more about additional services we offer to complete your event and make it unique.">Dobrodošli na stranicu posvećenu <span class="highlight">Ostalim uslugama</span> u okviru Unique Production. Ovde možete saznati više o dodatnim uslugama koje nudimo kako bismo upotpunili vaš događaj i učinili ga jedinstvenim.</p>
-            <img src="dodatne usluge.jpg" alt="Ostale usluge" class="performance-image">
+            <img src="dodatne usluge.webp" alt="Ostale usluge" class="performance-image">
             <ul>
                 <li data-sr="<span class='highlight'>Koktel majstor</span> – profesionalni barmen sa kompletnom opremom" data-en="<span class='highlight'>Cocktail Master</span> – professional bartender with complete equipment"><span class="highlight">Koktel majstor</span> – profesionalni barmen sa kompletnom opremom</li>
                 <li data-sr="<span class='highlight'>Dekoracija prostora</span> – personalizovana scenografija i stilizacija eventa" data-en="<span class='highlight'>Space Decoration</span> – personalized scenography and event styling"><span class="highlight">Dekoracija prostora</span> – personalizovana scenografija i stilizacija eventa</li>
@@ -856,5 +769,6 @@ if (backToTopButton) {
 
 
     </script>
+<script src="assets/shared.js" defer></script>
 </body>
 </html>

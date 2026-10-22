@@ -1,0 +1,161 @@
+/* ===================================================================
+   UNIQUE Production — zajednicki stilovi (polish 2026)
+   Iste boje i tekstovi; responzivnost, tempo i scroll dinamika.
+   =================================================================== */
+html { scroll-behavior: smooth; scroll-padding-top: 100px; -webkit-text-size-adjust: 100%; }
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+img { max-width: 100%; }
+button, input, textarea, select { font: inherit; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+::selection { background: #a78bfa; color: #fff; }
+a:focus-visible, button:focus-visible, input:focus-visible,
+textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* --- Navbar: staklasti efekat + skupljanje pri skrolu --- */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.88);
+    -webkit-backdrop-filter: saturate(160%) blur(12px);
+    backdrop-filter: saturate(160%) blur(12px);
+    transition: padding 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.navbar .logo img { transition: height 0.3s ease, transform 0.3s ease; }
+.navbar.scrolled { padding-top: 8px; padding-bottom: 8px; background-color: rgba(0, 0, 0, 0.96); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35); }
+.navbar.scrolled .logo img { height: 40px; }
+
+/* --- Zastavice jezika: u navbaru umesto plutajuce --- */
+.navbar .language-switcher { position: static; padding: 0; margin: 0 6px 0 16px; }
+.navbar .logo { margin-right: auto; }
+.navbar .hamburger { order: 10; margin-left: 14px; }
+
+/* --- Fluidni naslovi --- */
+.hero h1 { font-size: clamp(30px, 6vw, 48px); }
+.hero .subtitle { font-size: clamp(18px, 3.4vw, 28px); }
+.about-section h2, .intro-section h2, .services-grid h2, .contact-info h2,
+.gallery-header h2, .testimonials-section h2, .partnership-section h1,
+.intro-section h1, .section h1 { font-size: clamp(26px, 4.6vw, 36px); }
+
+/* --- Navigacija: hamburger i na tabletima (769-1100px se lomila) --- */
+@media (max-width: 1100px) {
+    .hamburger { display: flex; }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #000;
+        padding: 20px;
+        text-align: center;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+    .nav-links.active { display: flex; }
+    .nav-links li { margin: 10px 0; }
+    .nav-links a { font-size: 20px; display: inline-block; padding: 6px 12px; }
+    .dropdown-content { position: static; box-shadow: none; background-color: #1a1a1a; width: 100%; display: none; }
+    .dropdown.open .dropdown-content { display: block; }
+}
+
+/* --- Dropdown na desktopu: meko otvaranje --- */
+@media (min-width: 1101px) {
+    .dropdown-content {
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(8px);
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+    .dropdown:hover .dropdown-content,
+    .dropdown.open .dropdown-content,
+    .dropdown:focus-within .dropdown-content {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        pointer-events: auto;
+    }
+}
+
+/* --- Smirenije animacije: statican sjaj umesto stalnog pulsiranja --- */
+.intro-section, .testimonials-section { animation: none; box-shadow: 0 10px 30px rgba(167, 139, 250, 0.22); }
+.custom-container { animation: none; box-shadow: 0 10px 30px rgba(167, 139, 250, 0.25); }
+.image-placeholder img { animation: none; }
+.cta-button, .hero .cta-button { animation: none; box-shadow: 0 10px 28px rgba(167, 139, 250, 0.45); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.cta-button:hover, .hero .cta-button:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(167, 139, 250, 0.65); }
+.section .contact-btn { animation: none; box-shadow: 0 8px 24px rgba(167, 138, 250, 0.5); }
+
+/* --- Hover: blagi lift umesto scale (ostrije, bez mutnjenja slika) --- */
+.gallery-item:hover, .service-item:hover { transform: translateY(-6px); }
+.image-placeholder:hover { transform: translateY(-4px); }
+.feature-image:hover { transform: none; }
+
+/* --- Scroll reveal (dinamika pri skrolovanju) --- */
+html.js-reveal .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, transform;
+}
+html.js-reveal .reveal.reveal-in { opacity: 1; transform: none; }
+
+/* --- Hero: parallax priprema + stabilna visina na telefonu --- */
+.hero { height: 100vh; height: 100svh; }
+.hero video { height: 100vh; height: 100svh; }
+.hero-content { will-change: transform, opacity; }
+
+/* --- index: reklamna traka fluidna --- */
+.image-container { width: 100%; height: auto; }
+.feature-image { width: 100%; }
+
+/* --- index: pregled galerije, medjukorak za tablete --- */
+@media (max-width: 1024px) { .gallery-preview { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .gallery-preview { grid-template-columns: 1fr; } }
+
+/* --- galerija: filteri kao chipovi, prirodne proporcije na telefonu --- */
+.gallery-filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.gallery-filters button { margin: 0; }
+@media (max-width: 1100px) and (min-width: 769px) {
+    .gallery-grid { gap: 24px; }
+    .gallery-grid .gallery-item img { height: 320px; }
+}
+@media (max-width: 768px) {
+    .gallery-container { padding: 0 15px; }
+    .gallery-grid .gallery-item img { height: auto; aspect-ratio: 4 / 3; border-radius: 10px; }
+}
+
+/* --- stranice usluga: sadrzaj ispod fiksiranog navbara --- */
+body.page-pad main { padding-top: 130px; }
+@media (max-width: 768px) { body.page-pad main { padding-top: 110px; } }
+
+/* --- mobilno citanje + iOS auto-zum --- */
+@media (max-width: 768px) {
+    .about-section p, .contact-info p, .section p { text-align: left; }
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea { font-size: 16px; }
+}
+
+/* --- footer: powered by --- */
+.footer-credit .powered-by { display: inline-block; margin-top: 8px; font-size: 12px; color: #999; letter-spacing: 0.3px; }
+.footer-credit .powered-by a { color: #a78bfa; }
+
+/* --- pristupacnost: smanjene animacije --- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+    html.js-reveal .reveal { opacity: 1; transform: none; }
+}
