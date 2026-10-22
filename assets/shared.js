@@ -78,12 +78,28 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    /* --- Dropdown "Usluge": otvaranje i na klik/dodir --- */
+    /* --- Dropdown "Usluge": desktop hover, mobilni klik --- */
+    var mobileNav = window.matchMedia('(max-width: 1100px)');
     document.querySelectorAll('.dropdown > a').forEach(function (a) {
         a.addEventListener('click', function (e) {
-            e.preventDefault();
-            a.parentElement.classList.toggle('open');
+            e.preventDefault(); // bez skoka na #usluge
+            if (mobileNav.matches) a.parentElement.classList.toggle('open');
+            else a.blur(); // desktop: hover upravlja menijem, klik ga ne drzi otvorenim
         });
+    });
+    // klik/dodir van menija zatvara podmeni
+    document.addEventListener('click', function (e) {
+        document.querySelectorAll('.dropdown.open').forEach(function (dd) {
+            if (!dd.contains(e.target)) dd.classList.remove('open');
+        });
+    });
+    // zatvaranje hamburgera resetuje podmeni
+    var hbNav = document.querySelector('.hamburger');
+    var navUl = document.querySelector('.nav-links');
+    if (hbNav && navUl) hbNav.addEventListener('click', function () {
+        if (!navUl.classList.contains('active')) {
+            document.querySelectorAll('.dropdown.open').forEach(function (dd) { dd.classList.remove('open'); });
+        }
     });
 
     /* --- Hero video: u HTML-u je laka mobilna verzija; desktop dobija punu --- */
