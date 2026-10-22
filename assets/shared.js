@@ -86,18 +86,26 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* --- Hero video: telefoni dobijaju laganu verziju, ostali punu --- */
-    var v = document.querySelector('.hero video[data-src]');
+    /* --- Hero video: u HTML-u je laka mobilna verzija; desktop dobija punu --- */
+    var v = document.querySelector('.hero video[data-src-full]');
     if (v) {
+        v.muted = true;
         var touchPhone = window.matchMedia('(hover: none) and (pointer: coarse)').matches
             && window.matchMedia('(max-width: 820px)').matches;
-        var src = (touchPhone && v.getAttribute('data-src-mobile'))
-            ? v.getAttribute('data-src-mobile')
-            : v.getAttribute('data-src');
-        v.src = src;
-        v.load();
-        var p = v.play();
-        if (p && p.catch) p.catch(function () {});
+        if (!touchPhone) {
+            v.src = v.getAttribute('data-src-full');
+            v.load();
+        }
+        var tryPlay = function () {
+            v.muted = true;
+            var q = v.play();
+            if (q && q.catch) q.catch(function () {});
+        };
+        tryPlay();
+        var kick = function () { if (v.paused) tryPlay(); document.removeEventListener('touchstart', kick); };
+        document.addEventListener('touchstart', kick, { passive: true });
+    }
+});
         // rezerva: neki mobilni pregledaci traze dodir pre autoplay-a
         var kick = function () {
             if (v.paused) { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
