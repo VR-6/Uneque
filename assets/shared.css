@@ -423,8 +423,10 @@ main .highlight, .section .highlight, .about-section .highlight,
 .language-flag { object-fit: cover; }
 
 /* --- Kartice usluga: naizmenicni ulazak sa strana --- */
-html.js-reveal .reveal.reveal-left { transform: translateX(-70px); }
-html.js-reveal .reveal.reveal-right { transform: translateX(70px); }
+@media (max-width: 768px) {
+    html.js-reveal .reveal.reveal-left { transform: translateX(-70px); }
+    html.js-reveal .reveal.reveal-right { transform: translateX(70px); }
+}
 html.js-reveal .reveal.reveal-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
     html.js-reveal .reveal-left, html.js-reveal .reveal-right { transform: none; }
